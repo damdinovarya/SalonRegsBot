@@ -46,7 +46,7 @@ class Database:
                     user_id BIGINT
                 );
             """)
-            self.cur.commit()
+            self.con.commit()
 
     def get_connection(self):
         '''Возвращает текущее подключение к БД'''

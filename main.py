@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers, common_handlers, master_handlers
-from database import db, User, Master, Admin, Claim
+from database import db
 
 
 async def on_startup():
