@@ -4,11 +4,11 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers, common_handlers, master_handlers
-import sqlite_db
+from database import db, User, Master, Admin, Claim
 
 
 async def on_startup():
-    await sqlite_db.db_connect()
+    await db.connect()
     print('Successful db connect ✅')
 
 
