@@ -3,14 +3,11 @@ from .db_connection import db
 class Admin:
     def __init__(self):
         self.con = db.get_connection()
+        self.cur = db.get_cursor()
 
-    async def create_person(self, name, person_id, username, work_or_education, mail, claims):
-        with self.con:
-            self.con.execute(
-                "INSERT INTO people(person_name, person_id, username, work_or_education, mail, claims) VALUES (?, ?, ?, ?, ?, ?);", 
-                (name, person_id, username, work_or_education, mail, claims)
-            )
+    async def create_admin(self, user_id):
+        self.cur.execute("INSERT INTO claims(user_id) VALUES (?);", (user_id,))
+        self.con.commit()
 
-    async def get_person_by_id(self, person_id):
-        cur = self.con.cursor()
-        return cur.execute("SELECT * FROM people WHERE person_id = ?;", (person_id,)).fetchall()
+    async def get_admin_by_id_telegram(self, person_id):
+        return self.cur.execute("SELECT * FROM admins WHERE user_id = ?;", (person_id,)).fetchall()[-1]
