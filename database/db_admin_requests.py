@@ -1,5 +1,6 @@
 from .db_connection import db
 
+
 class Admin:
     def __init__(self):
         self.con = db.get_connection()

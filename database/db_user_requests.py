@@ -1,5 +1,6 @@
 from .db_connection import db
 
+
 class User:
     def __init__(self):
         self.con = db.get_connection()
@@ -7,7 +8,7 @@ class User:
 
     async def create_user(self, id_telegram, fullname, tnumber):
         self.cur.execute(
-            "INSERT INTO users(id_telegram, fullname, tnumber) VALUES (?, ?, ?);", 
+            "INSERT INTO users(id_telegram, fullname, tnumber) VALUES (?, ?, ?);",
             (id_telegram, fullname, tnumber)
         )
         self.con.commit()
