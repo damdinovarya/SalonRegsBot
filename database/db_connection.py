@@ -60,5 +60,6 @@ class Database:
             raise ValueError("Database cursor is not initialized. Call 'connect()' first.")
         return self.cur
 
+
 # Создаём глобальный экземпляр базы данных
 db = Database()

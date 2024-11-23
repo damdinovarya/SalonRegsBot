@@ -14,3 +14,6 @@ class User:
 
     async def get_user_by_id_telegram(self, id_telegram):
         return self.cur.execute("SELECT * FROM users WHERE id_telegram = ?;", (id_telegram,)).fetchall()[-1]
+
+    async def get_users(self):
+        return self.cur.execute("SELECT * FROM users").fetchall()
