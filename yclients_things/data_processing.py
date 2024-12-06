@@ -9,7 +9,7 @@ class DataProcessor:
         self.staff_data_list = staff_data_list
         self.services_data_list = services_data_list
 
-    def get_all_services_titles(self):
+    async def get_all_services_titles(self):
         """
         Функция для получения списка названий всех услуг.
 
@@ -17,7 +17,7 @@ class DataProcessor:
         """
         return [service['title'] for service in self.services_data_list]
 
-    def get_staff_for_service(self, service_title):
+    async def get_staff_for_service(self, service_title):
         """
         Функция для получения имён сотрудников, которые занимаются определенной услугой.
 

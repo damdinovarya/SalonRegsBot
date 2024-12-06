@@ -4,7 +4,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers, master_handlers
 from database import db
-from yclients import APIClient, DataProcessor
+from yclients_things import APIClient, DataProcessor
 
 
 async def on_startup():
@@ -12,8 +12,11 @@ async def on_startup():
     print('Successful db connect ✅')
 
 
-async def get_api_data():
-    # Создаем экземпляр APIClient для получения данных
+async def setup_api(dp: Dispatcher):
+    """
+    Подключение к API YClients и сохранение обработанных данных в диспетчере.
+    """
+    # Создаем экземпляр APIClient
     api_client = APIClient(
         token="nzdj6eabmyj9kd3mbmjk",
         company_id=1186779,
@@ -21,20 +24,27 @@ async def get_api_data():
         login="hooooogrideeer@gmail.com",
         password="zh33ek"
     )
-    # Получаем данные о сотрудниках и услугах
+
+    # Получаем данные из API (выполняем синхронную функцию через asyncio.to_thread)
     staff_data_list, services_data_list = await asyncio.to_thread(api_client.get_data_from_api)
 
+    # Создаем экземпляр DataProcessor
     data_processor = DataProcessor(staff_data_list, services_data_list)
 
-    # Возвращаем обработанные данные для использования в других частях проекта
-    return data_processor
+    # Сохраняем объект DataProcessor в dp.data
+    dp['data_processor'] = data_processor
+
+    print("Successful api connect ✅")
 
 
 async def main():
     await on_startup()
-    data_processor = await get_api_data()
+
     bot = Bot(token="7596895625:AAHBZVnbG2Nee5qxbe5bJ_4-z0luFMCHRZM")
     dp = Dispatcher(storage=MemoryStorage())
+
+    await setup_api(dp)
+
     dp.include_routers(client_handlers.router, master_handlers.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())

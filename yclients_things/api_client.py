@@ -45,13 +45,3 @@ class APIClient:
             services_data_list.append(self.api.get_service_info(service_id)['data'])
 
         return staff_data_list, services_data_list
-
-
-TOKEN = "nzdj6eabmyj9kd3mbmjk"
-CID = 1186779
-FID = 1301768
-
-login = "hooooogrideeer@gmail.com"
-password = "zh33ek"
-
-api = APIClient(TOKEN, CID, FID, login, password)
