@@ -1,33 +1,44 @@
-def get_all_services_titles(services_data_list):
-    """
-    Функция для получения списка названий всех услуг.
+class DataProcessor:
+    def __init__(self, staff_data_list, services_data_list):
+        """
+        Конструктор класса для обработки данных сотрудников и услуг.
 
-    :param services_data_list: Список всех услуг
-    :return: Список названий услуг
-    """
-    return [service['title'] for service in services_data_list]
+        :param staff_data_list: Список сотрудников
+        :param services_data_list: Список услуг
+        """
+        self.staff_data_list = staff_data_list
+        self.services_data_list = services_data_list
 
+    def get_all_services_titles(self):
+        """
+        Функция для получения списка названий всех услуг.
 
-def get_staff_for_service(service_title, services_data_list, staff_data_list):
-    """
-    Функция для получения имён сотрудников, которые занимаются определенной услугой.
+        :return: Список названий услуг
+        """
+        return [service['title'] for service in self.services_data_list]
 
-    :param service_title: Название услуги, для которой нужно найти сотрудников
-    :param services_data_list: Список всех услуг
-    :param staff_data_list: Список всех сотрудников
-    :return: Список имён сотрудников, которые занимаются данной услугой
-    """
-    # Находим id услуги по названию
-    service_staff_ids = []
-    for service_data in services_data_list:
-        if service_title == service_data['title']:
-            service_staff_ids = [staff_member['id'] for staff_member in service_data['staff']]
+    def get_staff_for_service(self, service_title):
+        """
+        Функция для получения имён сотрудников, которые занимаются определенной услугой.
 
-    # Находим сотрудников по их id
-    staff_names = [
-        staff['name']
-        for staff in staff_data_list
-        if staff['id'] in service_staff_ids
-    ]
+        :param service_title: Название услуги, для которой нужно найти сотрудников
+        :return: Список имён сотрудников, которые занимаются данной услугой
+        """
+        # Находим услугу по её названию
+        service = next((s for s in self.services_data_list if s['title'] == service_title), None)
 
-    return staff_names
+        if service is None:
+            # Если услуга не найдена, возвращаем пустой список
+            return []
+
+        # Получаем список сотрудников, которые оказывают эту услугу
+        service_staff_ids = [staff_member['id'] for staff_member in service['staff']]
+
+        # Находим сотрудников по их id
+        staff_names = [
+            staff['name']
+            for staff in self.staff_data_list
+            if staff['id'] in service_staff_ids and staff['specialization'] == service_title
+        ]
+
+        return staff_names
