@@ -24,6 +24,11 @@ if __name__ == '__main__':
     staff_data_list = api.get_staff()['data']
     services_data_list = api.get_services()['data']['services']
 
-    print(clients_data_list)
+    staff_keys = ['id', 'name', 'specialization', 'avatar_big', 'information', 'fired']
+    staff_data_list = [{key: staff[key] for key in staff_keys if key in staff} for staff in staff_data_list]
+
+    services_keys = ['id', 'title', 'price_min']
+    services_data_list = [{key: services[key] for key in services_keys if key in services} for services in services_data_list]
+
     print(staff_data_list)
     print(services_data_list)
