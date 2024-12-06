@@ -31,4 +31,3 @@ if __name__ == '__main__':
     print(staff_data_list)
     for i in services_data_list:
         print(i)
-
