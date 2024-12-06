@@ -1,6 +1,7 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import types
 from database import db
+from utils import rus_to_eng, eng_to_rus
 
 
 def get_client_tel_keyboard():
@@ -31,5 +32,27 @@ def client_show_profile_keyboard():
     builder = InlineKeyboardBuilder()
     builder.row(types.InlineKeyboardButton(text="Редактировать", callback_data="client_data_edit"),
                 types.InlineKeyboardButton(text="« Назад", callback_data="start"),
+                width=1)
+    return builder
+
+
+def client_show_services_keyboard(client_services_titles):
+    builder = InlineKeyboardBuilder()
+    for service in client_services_titles:
+        builder.row(
+            types.InlineKeyboardButton(text=f"{service.capitalize()}", callback_data=f"client_show_services_{rus_to_eng(service)}"),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data="start"),
+                width=1)
+    return builder
+
+
+def client_show_workers_keyboard(workers, title):
+    builder = InlineKeyboardBuilder()
+    for worker in workers:
+        builder.row(
+            types.InlineKeyboardButton(text=f"{worker['name']} ({worker['rating']}⭐️)", callback_data=f"client_show_workers_{rus_to_eng(title)}_{worker['id']}"),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_services"),
                 width=1)
     return builder
