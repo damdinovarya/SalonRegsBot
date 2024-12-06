@@ -7,14 +7,14 @@ from yclients import YClientsAPI
 if __name__ == '__main__':
 
     TOKEN = "nzdj6eabmyj9kd3mbmjk"
-    СID = 1186779
+    CID = 1186779
     FID = 1301768
 
     login = "hooooogrideeer@gmail.com"
     password = "zh33ek"
 
     # Create api object
-    api = YClientsAPI(token=TOKEN, company_id=СID, form_id=FID)
+    api = YClientsAPI(token=TOKEN, company_id=CID, form_id=FID)
     user_token = api.get_user_token(login, password)
     api.update_user_token(user_token)
 
@@ -24,11 +24,11 @@ if __name__ == '__main__':
     staff_data_list = api.get_staff()['data']
     services_data_list = api.get_services()['data']['services']
 
-    staff_keys = ['id', 'name', 'specialization', 'avatar_big', 'information', 'fired']
-    staff_data_list = [{key: staff[key] for key in staff_keys if key in staff} for staff in staff_data_list]
+    all_clients_id = [client['id'] for client in clients_data_list]
+    client_visits = api.get_visits_for_client(CID)
 
-    services_keys = ['id', 'title', 'price_min']
-    services_data_list = [{key: services[key] for key in services_keys if key in services} for services in services_data_list]
-
+    print(clients_data_list)
     print(staff_data_list)
-    print(services_data_list)
+    for i in services_data_list:
+        print(i)
+
