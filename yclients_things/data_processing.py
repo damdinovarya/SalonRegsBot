@@ -31,6 +31,11 @@ class DataProcessor:
             if service['title'] == service_name:
                 return service['id']
 
+    def get_service_price_by_name(self, service_name):
+        for service in self.services_data_list:
+            if service['title'] == service_name:
+                return service['price_min']
+
     def get_staff_dates_times(self, staff_id, service_name, day):
         service_id = self.get_service_id_by_name(service_name)
         return [time['time'] for time in self.api.get_available_times(staff_id, service_id, day)['data']]
