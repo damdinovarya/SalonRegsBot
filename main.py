@@ -9,6 +9,12 @@ from yclients_things import APIClient, DataProcessor
 
 
 async def on_startup(dp: Dispatcher):
+    """
+    Инициализация при старте бота.
+    Соединение с базой данных и сохранение менеджеров пользователей, заявок и администраторов в диспетчере.
+    :param dp: Dispatcher
+    :return: None
+    """
     await db.connect()
     dp['user_manager'] = User()
     dp['claim_manager'] = Claim()
@@ -18,7 +24,10 @@ async def on_startup(dp: Dispatcher):
 
 async def setup_api(dp: Dispatcher):
     """
-    Подключение к API YClients и сохранение обработанных данных в диспетчере.
+    Настройка API YClients.
+    Подключение к API YClients, создание дата процессора и сохранение его в диспетчере.
+    :param dp: Dispatcher
+    :return: None
     """
     api_client = APIClient(
         token="nzdj6eabmyj9kd3mbmjk",
@@ -33,6 +42,11 @@ async def setup_api(dp: Dispatcher):
 
 
 async def main():
+    """
+    Основная функция запуска бота.
+    Запуск бота, создание диспетчера, подключение к базе данных и API
+    :return: None
+    """
     bot = Bot(token="7349087922:AAF95Y4yHsExdwGzMDQx7GzYOwbEfu27FmI", default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher(storage=MemoryStorage())
     await on_startup(dp)

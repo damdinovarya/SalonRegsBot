@@ -2,9 +2,14 @@ from yclients import YClientsAPI
 
 
 class DataProcessor:
+    """
+    Класс для получения и обработки данных из API YClients.
+    """
     def __init__(self, api: YClientsAPI):
         """
-        Конструктор класса для обработки данных сотрудников и услуг.
+        Инициализация объекта DataProcessor.
+
+        :param api:
         """
         self.api = api
         self.staff_data_list = []
@@ -12,6 +17,9 @@ class DataProcessor:
         self.get_start_data()
 
     def get_start_data(self):
+        """
+        Загружает начальные данные сотрудников и услуг из API.
+        """
         self.staff_data_list = self.api.get_staff()['data']
         fake_services_data_list = self.api.get_services()['data']['services']
 
@@ -24,27 +32,53 @@ class DataProcessor:
         self.services_data_list = services_data_list
 
     def get_staff_dates(self, staff_id):
+        """
+        Возвращает список доступных дней для записи к указанному сотруднику.
+
+        :param staff_id: ID сотрудника.
+        :return: Список дат, доступных для записи.
+        """
         return self.api.get_available_days(staff_id)['data']['booking_dates']
 
     def get_service_id_by_name(self, service_name):
+        """
+        Получает ID услуги по её названию.
+
+        :param service_name: Название услуги.
+        :return: ID услуги.
+        """
         for service in self.services_data_list:
             if service['title'] == service_name:
                 return service['id']
 
     def get_service_price_by_name(self, service_name):
+        """
+        Получает цену услуги по её названию.
+
+        :param service_name: Название услуги.
+        :return: Минимальная цена услуги.
+        """
         for service in self.services_data_list:
             if service['title'] == service_name:
                 return service['price_min']
 
     def get_staff_dates_times(self, staff_id, service_name, day):
+        """
+        Получает список доступного времени для записи к сотруднику на указанную дату.
+
+        :param staff_id: ID сотрудника.
+        :param service_name: Название услуги.
+        :param day: Дата.
+        :return: Список времени.
+        """
         service_id = self.get_service_id_by_name(service_name)
         return [time['time'] for time in self.api.get_available_times(staff_id, service_id, day)['data']]
 
     def get_all_services_titles(self):
         """
-        Функция для получения списка названий всех услуг.
+        Получает список названий всех услуг и их минимальных цен.
 
-        :return: Список названий услуг
+        :return: Кортеж из двух списков: названия услуг и их минимальные цены.
         """
         self.get_start_data()
         titles = []
@@ -55,6 +89,12 @@ class DataProcessor:
         return titles, titles_prices
 
     def get_staff_by_id(self, staff_id):
+        """
+        Получает данные о сотруднике по его ID.
+
+        :param staff_id: ID сотрудника.
+        :return: Словарь с данными сотрудника.
+        """
         self.get_start_data()
         for worker in self.staff_data_list:
             if worker['id'] == staff_id:
@@ -79,6 +119,13 @@ class DataProcessor:
                 return service_staff
 
     def booking(self, staff_id, service_id, date_time):
+        """
+        Осуществляет запись клиента на услугу.
+
+        :param staff_id: ID сотрудника.
+        :param service_id: ID услуги.
+        :param date_time: Дата и время записи.
+        """
         booked, message = self.api.book(booking_id=0,
                                         fullname='челикс',
                                         phone='53425345',
