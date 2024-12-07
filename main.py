@@ -6,6 +6,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers_profile, client_handlers_services, client_handlers_claims, client_handlers_admin, master_handlers
 from database import db, User, Claim, Admin
 from yclients_things import APIClient, DataProcessor
+import config
 
 
 async def on_startup(dp: Dispatcher):
@@ -30,11 +31,11 @@ async def setup_api(dp: Dispatcher):
     :return: None
     """
     api_client = APIClient(
-        token="nzdj6eabmyj9kd3mbmjk",
-        company_id=1186779,
-        form_id=1301768,
-        login="hooooogrideeer@gmail.com",
-        password="zh33ek"
+        token=config.YCLIENTS_TOKEN,
+        company_id=config.YCLIENTS_COMPANY_ID,
+        form_id=config.YCLIENTS_FORM_ID,
+        login=config.YCLIENTS_LOGIN,
+        password=config.YCLIENTS_PASSWORD
     )
     data_processor = DataProcessor(api_client.api)
     dp['data_processor'] = data_processor
@@ -47,7 +48,7 @@ async def main():
     Запуск бота, создание диспетчера, подключение к базе данных и API
     :return: None
     """
-    bot = Bot(token="7349087922:AAF95Y4yHsExdwGzMDQx7GzYOwbEfu27FmI", default=DefaultBotProperties(parse_mode="HTML"))
+    bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher(storage=MemoryStorage())
     await on_startup(dp)
     await setup_api(dp)
