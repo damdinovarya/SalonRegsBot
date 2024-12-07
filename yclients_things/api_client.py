@@ -27,21 +27,3 @@ class APIClient:
         api.update_user_token(user_token)
 
         return api
-
-    def get_data_from_api(self):
-        """
-        Функция для получения данных с API.
-        Возвращает данные о сотрудниках и услугах.
-        """
-        # Получаем данные
-        staff_data_list = self.api.get_staff()['data']
-        fake_services_data_list = self.api.get_services()['data']['services']
-
-        # Получаем id всех услуг
-        all_services_id = [service['id'] for service in fake_services_data_list]
-
-        services_data_list = []
-        for service_id in all_services_id:
-            services_data_list.append(self.api.get_service_info(service_id)['data'])
-
-        return staff_data_list, services_data_list

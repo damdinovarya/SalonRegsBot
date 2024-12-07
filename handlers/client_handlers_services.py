@@ -36,6 +36,14 @@ async def client_show_workers_(callback: types.CallbackQuery, data_processor: Da
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[3])
     worker = data_processor.get_staff_by_id(int(call_data[4]))
+
+    # dates = data_processor.get_staff_dates(worker['id'])
+    # print(dates)
+    # for date in dates:
+    #     print(data_processor.get_staff_dates_times(worker['id'], title, date))
+    #
+    # data_processor.booking(3595062, 17759835, '2024-12-07')
+
     await callback.message.edit_media(media=InputMediaPhoto(media=worker['avatar_big'],
                                       caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
                                               f"\n<i>Специализация: {worker['specialization']}</i>"

@@ -24,8 +24,7 @@ async def setup_api(dp: Dispatcher):
         login="hooooogrideeer@gmail.com",
         password="zh33ek"
     )
-    staff_data_list, services_data_list = await asyncio.to_thread(api_client.get_data_from_api)
-    data_processor = DataProcessor(staff_data_list, services_data_list)
+    data_processor = DataProcessor(api_client.api)
     dp['data_processor'] = data_processor
     print("Successful api connect ✅")
 
