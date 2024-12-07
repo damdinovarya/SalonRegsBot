@@ -1,5 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher
+from aiogram.client.bot import DefaultBotProperties
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers_profile, client_handlers_services, master_handlers
@@ -31,12 +32,9 @@ async def setup_api(dp: Dispatcher):
 
 async def main():
     await on_startup()
-
-    bot = Bot(token="7596895625:AAHBZVnbG2Nee5qxbe5bJ_4-z0luFMCHRZM")
+    bot = Bot(token="7349087922:AAF95Y4yHsExdwGzMDQx7GzYOwbEfu27FmI", default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher(storage=MemoryStorage())
-
     await setup_api(dp)
-
     dp.include_routers(client_handlers_profile.router, client_handlers_services.router, master_handlers.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())

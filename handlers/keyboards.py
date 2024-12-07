@@ -56,3 +56,12 @@ def client_show_workers_keyboard(workers, title):
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_services"),
                 width=1)
     return builder
+
+
+def client_show_worker_keyboard(worker, title):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Выбрать время", callback_data=f"client_show_calendar_{worker['id']}"),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_services_{rus_to_eng(title)}"),
+                width=1)
+    return builder
