@@ -34,15 +34,6 @@ class Database:
                 );
             """)
             self.cur.execute("""
-                CREATE TABLE IF NOT EXISTS masters (
-                    id INTEGER PRIMARY KEY,
-                    user_id BIGINT,
-                    spec TEXT,
-                    experience INT,
-                    schedule TEXT
-                );
-            """)
-            self.cur.execute("""
                 CREATE TABLE IF NOT EXISTS admins (
                     id INTEGER PRIMARY KEY,
                     user_id BIGINT
