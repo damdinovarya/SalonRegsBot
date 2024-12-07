@@ -33,7 +33,7 @@ class DataProcessor:
 
     def get_staff_dates_times(self, staff_id, service_name, day):
         service_id = self.get_service_id_by_name(service_name)
-        return self.api.get_available_times(staff_id, service_id, day)['data']
+        return [time['time'] for time in self.api.get_available_times(staff_id, service_id, day)['data']]
 
     def get_all_services_titles(self):
         """

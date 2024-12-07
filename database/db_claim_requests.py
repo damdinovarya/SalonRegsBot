@@ -6,9 +6,9 @@ class Claim:
         self.con = db.get_connection()
         self.cur = db.get_cursor()
 
-    async def create_claim(self, user_id, master_id):
-        self.cur.execute("INSERT INTO claims(user_id, master_id) VALUES (?, ?);",
-                         (user_id, master_id))
+    async def create_claim(self, user_id, master_id, service, date, time):
+        self.cur.execute("INSERT INTO claims(user_id, master_id, service, date, time, state) VALUES (?, ?, ?, ?, ?, ?);",
+                         (user_id, master_id, service, date, time, 0))
         self.con.commit()
 
     async def get_claim(self, user_id, master_id):

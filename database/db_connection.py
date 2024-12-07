@@ -30,7 +30,11 @@ class Database:
                 CREATE TABLE IF NOT EXISTS claims (
                     id INTEGER PRIMARY KEY,
                     user_id INTEGER,
-                    master_id INTEGER
+                    master_id BIGINT,
+                    service TEXT,
+                    date TEXT,
+                    time TEXT,
+                    state INTEGER
                 );
             """)
             self.cur.execute("""

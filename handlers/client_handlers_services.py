@@ -7,16 +7,14 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from handlers import keyboards
 from database import db, User
-import datetime
+from datetime import datetime, time
 from utils import rus_to_eng, eng_to_rus
 import time
 
 router = Router()
 
-
 class ClientServicesState(StatesGroup):
     user_await = State()
-
 
 @router.callback_query(F.data == "client_show_services")
 async def client_show_services(callback: types.CallbackQuery, state: FSMContext, data_processor: DataProcessor):
@@ -36,16 +34,37 @@ async def client_show_workers_(callback: types.CallbackQuery, data_processor: Da
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[3])
     worker = data_processor.get_staff_by_id(int(call_data[4]))
-
-    # dates = data_processor.get_staff_dates(worker['id'])
-    # print(dates)
-    # for date in dates:
-    #     print(data_processor.get_staff_dates_times(worker['id'], title, date))
-    #
-    # data_processor.booking(3595062, 17759835, '2024-12-07')
-
     await callback.message.edit_media(media=InputMediaPhoto(media=worker['avatar_big'],
                                       caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
                                               f"\n<i>Специализация: {worker['specialization']}</i>"
-                                              f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"),
+                                              f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                              f"\n\n"),
                                       reply_markup=keyboards.client_show_worker_keyboard(worker, title).as_markup())
+
+
+@router.callback_query(F.data.startswith("client_show_calendar_"))
+async def client_show_calendar_(callback: types.CallbackQuery, data_processor: DataProcessor):
+    call_data = callback.data.split("_")
+    title = eng_to_rus(call_data[4])
+    worker = data_processor.get_staff_by_id(int(call_data[3]))
+    dates = data_processor.get_staff_dates(worker['id'])
+    await callback.message.edit_caption(caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
+                                                f"\n<i>Специализация: {worker['specialization']}</i>"
+                                                f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                                f"\n\nВыберите свободную дату:",
+                                      reply_markup=keyboards.client_show_calendar_dates_keyboard(worker, title, dates).as_markup())
+
+
+@router.callback_query(F.data.startswith("client_pick_time_"))
+async def client_pick_time_(callback: types.CallbackQuery, data_processor: DataProcessor):
+    call_data = callback.data.split("_")
+    title = eng_to_rus(call_data[3])
+    worker = data_processor.get_staff_by_id(int(call_data[4]))
+    date_object = datetime.strptime(call_data[5], "%d%m%Y")
+    times = data_processor.get_staff_dates_times(worker['id'], title, date_object.strftime('%Y-%m-%d'))
+    await callback.message.edit_caption(caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
+                                                f"\n<i>Специализация: {worker['specialization']}</i>"
+                                                f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                                f"\n\n<b>Вы выбрали дату: {date_object.strftime('%d.%m.%Y')}</b>"
+                                                f"\nВыберите время:",
+                                      reply_markup=keyboards.client_show_calendar_times_keyboard(worker, title, call_data[5], times).as_markup())
