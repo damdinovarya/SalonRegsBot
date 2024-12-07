@@ -6,7 +6,7 @@ from aiogram.types import FSInputFile, InputMediaPhoto
 from aiogram.filters import Command
 from aiogram.types import Message
 from handlers import keyboards
-from database import db, User
+from database import db, User, Claim
 from datetime import datetime, time
 from utils import rus_to_eng, eng_to_rus
 import time
@@ -17,15 +17,17 @@ class ClientServicesState(StatesGroup):
     user_await = State()
 
 @router.callback_query(F.data == "client_show_services")
-async def client_show_services(callback: types.CallbackQuery, state: FSMContext, data_processor: DataProcessor):
-    titles = data_processor.get_all_services_titles()
-    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/services.jpg'), caption="Услуги:"), reply_markup=keyboards.client_show_services_keyboard(titles).as_markup())
+async def client_show_services(callback: types.CallbackQuery, data_processor: DataProcessor):
+    titles, titles_prices = data_processor.get_all_services_titles()
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/services.jpg'), caption="Вот наши услуги:"), reply_markup=keyboards.client_show_services_keyboard(titles, titles_prices).as_markup())
 
 
 @router.callback_query(F.data.startswith("client_show_services_"))
 async def client_show_services_(callback: types.CallbackQuery, data_processor: DataProcessor):
     title = eng_to_rus(callback.data.split("_")[3])
-    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/workers.jpg'), caption=f"Челики:"),
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/workers.jpg'),
+                                                            caption=f"Выбранная услуга: {title.capitalize()}"
+                                                                    f"\n\nВыберите сотрудника:"),
                                      reply_markup=keyboards.client_show_workers_keyboard(data_processor.get_staff_for_service(title), title).as_markup())
 
 
@@ -33,12 +35,14 @@ async def client_show_services_(callback: types.CallbackQuery, data_processor: D
 async def client_show_workers_(callback: types.CallbackQuery, data_processor: DataProcessor):
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[3])
+    price = data_processor.get_service_price_by_name(title)
     worker = data_processor.get_staff_by_id(int(call_data[4]))
     await callback.message.edit_media(media=InputMediaPhoto(media=worker['avatar_big'],
                                       caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
                                               f"\n<i>Специализация: {worker['specialization']}</i>"
                                               f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
-                                              f"\n\n"),
+                                              f"\n\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                              f"\n<b>Стоимость услуги:</b> {price}₽"),
                                       reply_markup=keyboards.client_show_worker_keyboard(worker, title).as_markup())
 
 
@@ -46,12 +50,15 @@ async def client_show_workers_(callback: types.CallbackQuery, data_processor: Da
 async def client_show_calendar_(callback: types.CallbackQuery, data_processor: DataProcessor):
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[4])
+    price = data_processor.get_service_price_by_name(title)
     worker = data_processor.get_staff_by_id(int(call_data[3]))
     dates = data_processor.get_staff_dates(worker['id'])
     await callback.message.edit_caption(caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
-                                                f"\n<i>Специализация: {worker['specialization']}</i>"
-                                                f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
-                                                f"\n\nВыберите свободную дату:",
+                                              f"\n<i>Специализация: {worker['specialization']}</i>"
+                                              f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                              f"\n\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                              f"\n<b>Стоимость услуги:</b> {price}₽"
+                                              f"\n\nВыберите свободную дату:",
                                       reply_markup=keyboards.client_show_calendar_dates_keyboard(worker, title, dates).as_markup())
 
 
@@ -59,12 +66,55 @@ async def client_show_calendar_(callback: types.CallbackQuery, data_processor: D
 async def client_pick_time_(callback: types.CallbackQuery, data_processor: DataProcessor):
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[3])
+    price = data_processor.get_service_price_by_name(title)
     worker = data_processor.get_staff_by_id(int(call_data[4]))
     date_object = datetime.strptime(call_data[5], "%d%m%Y")
     times = data_processor.get_staff_dates_times(worker['id'], title, date_object.strftime('%Y-%m-%d'))
     await callback.message.edit_caption(caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
                                                 f"\n<i>Специализация: {worker['specialization']}</i>"
                                                 f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
-                                                f"\n\n<b>Вы выбрали дату: {date_object.strftime('%d.%m.%Y')}</b>"
-                                                f"\nВыберите время:",
+                                                f"\n\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                                f"\n<b>Стоимость услуги:</b> {price}₽"
+                                                f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
+                                                f"\n\nВыберите время:",
                                       reply_markup=keyboards.client_show_calendar_times_keyboard(worker, title, call_data[5], times).as_markup())
+
+
+@router.callback_query(F.data.startswith("client_send_claim_"))
+async def client_send_claim_(callback: types.CallbackQuery, data_processor: DataProcessor):
+    call_data = callback.data.split("_")
+    title = eng_to_rus(call_data[3])
+    price = data_processor.get_service_price_by_name(title)
+    worker = data_processor.get_staff_by_id(int(call_data[4]))
+    date_object = datetime.strptime(call_data[5], "%d%m%Y")
+    time_object = datetime.strptime(call_data[6], "%H%M").time()
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/claim.jpg'),
+                                      caption=f"<b>ВАША ЗАЯВКА:</b>"
+                                                f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
+                                                f"\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                                f"\n<b>Стоимость услуги:</b> {price}₽"
+                                                f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
+                                                f"\n<b>Время:</b> {time_object.strftime('%H:%M')}"
+                                                f"\n\n<i>Внимательно проверьте данные, если нужно что-то изменить нажмите на кнопку «Назад»</i>"),
+                                      reply_markup=keyboards.client_send_claim_keyboard(worker, title, call_data[5], call_data[6]).as_markup())
+
+
+@router.callback_query(F.data.startswith("send_claim_"))
+async def send_claim_(callback: types.CallbackQuery, data_processor: DataProcessor, user_manager: User, claim_manager: Claim):
+    call_data = callback.data.split("_")
+    title = eng_to_rus(call_data[2])
+    price = data_processor.get_service_price_by_name(title)
+    worker = data_processor.get_staff_by_id(int(call_data[3]))
+    date_object = datetime.strptime(call_data[4], "%d%m%Y")
+    time_object = datetime.strptime(call_data[5], "%H%M").time()
+    user = await user_manager.get_user_by_id_telegram(callback.message.chat.id)
+    await claim_manager.create_claim(user[0], worker['id'], title, date_object.strftime('%Y-%m-%d'), time_object.strftime('%H:%M'))
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/sended.jpg'),
+                                      caption=f"<b>ВАША ЗАЯВКА ОТПРАВЛЕНА</b> | <i>Статус:</i> <pre>на рассмотрении</pre>"
+                                                f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
+                                                f"\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                                f"\n<b>Стоимость услуги:</b> {price}₽"
+                                                f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
+                                                f"\n<b>Время:</b> {time_object.strftime('%H:%M')}"
+                                                f"\n\n<i>Ожидайте подтверждение заявки, ответ придет в ближайшее время</i>"),
+                                        reply_markup=keyboards.send_claim_keyboard().as_markup())

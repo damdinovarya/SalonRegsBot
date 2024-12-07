@@ -47,7 +47,12 @@ class DataProcessor:
         :return: Список названий услуг
         """
         self.get_start_data()
-        return [service['title'].lower() for service in self.services_data_list]
+        titles = []
+        titles_prices = []
+        for service in self.services_data_list:
+            titles.append(service['title'].lower())
+            titles_prices.append(service['price_min'])
+        return titles, titles_prices
 
     def get_staff_by_id(self, staff_id):
         self.get_start_data()

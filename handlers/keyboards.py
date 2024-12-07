@@ -37,11 +37,11 @@ def client_show_profile_keyboard():
     return builder
 
 
-def client_show_services_keyboard(client_services_titles):
+def client_show_services_keyboard(client_services_titles, titles_prices):
     builder = InlineKeyboardBuilder()
-    for service in client_services_titles:
+    for i in range(len(client_services_titles)):
         builder.row(
-            types.InlineKeyboardButton(text=f"{service.capitalize()}", callback_data=f"client_show_services_{rus_to_eng(service)}"),
+            types.InlineKeyboardButton(text=f"{client_services_titles[i].capitalize()} | {titles_prices[i]}₽", callback_data=f"client_show_services_{rus_to_eng(client_services_titles[i])}"),
             width=1)
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data="start"),
                 width=1)
@@ -78,6 +78,8 @@ def client_show_calendar_dates_keyboard(worker, title, dates):
             types.InlineKeyboardButton(text=f"{date_object.strftime('%d.%m.%Y')}",
                                        callback_data=f"client_pick_time_{rus_to_eng(title)}_{worker['id']}_{date_object.strftime('%d%m%Y')}"))
     builder.row(*buttons, width=3)
+    builder.row(types.InlineKeyboardButton(text='« Назад к "Сотрудникам"', callback_data=f"client_show_services_{rus_to_eng(title)}"),
+                width=1)
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_workers_{rus_to_eng(title)}_{worker['id']}"),
                 width=1)
     return builder
@@ -93,6 +95,47 @@ def client_show_calendar_times_keyboard(worker, title, date, times):
             types.InlineKeyboardButton(text=f"{time_object.strftime('%H:%M')}",
                                        callback_data=f"client_send_claim_{rus_to_eng(title)}_{worker['id']}_{date}_{time_object.strftime('%H%M')}"))
     builder.row(*buttons, width=3)
+    builder.row(types.InlineKeyboardButton(text='« Назад к "Сотрудникам"',
+                                           callback_data=f"client_show_services_{rus_to_eng(title)}"),
+                width=1)
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_calendar_{worker['id']}_{rus_to_eng(title)}"),
+                width=1)
+    return builder
+
+
+def client_send_claim_keyboard(worker, title, date, time_):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text='Сохранить',
+                                           callback_data=f"send_claim_{rus_to_eng(title)}_{worker['id']}_{date}_{time_}"),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text='« Назад к "Сотрудникам"',
+                                           callback_data=f"client_show_services_{rus_to_eng(title)}"),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_pick_time_{rus_to_eng(title)}_{worker['id']}_{date}"),
+                width=1)
+    return builder
+
+
+def send_claim_keyboard():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Главное меню »", callback_data=f"start"),
+                width=1)
+    return builder
+
+
+def client_show_claims_keyboard(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        if int(claim[6]) != 2:
+            date_object = datetime.strptime(claim[4], "%Y-%m-%d")
+            builder.row(types.InlineKeyboardButton(text=f"{claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}", callback_data=f"claim_{claim[0]}"),
+                        width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"start"),
+                width=1)
+    return builder
+
+def claim_keyboard():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_claims"),
                 width=1)
     return builder

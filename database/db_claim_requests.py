@@ -11,6 +11,14 @@ class Claim:
                          (user_id, master_id, service, date, time, 0))
         self.con.commit()
 
-    async def get_claim(self, user_id, master_id):
-        return self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ?;",
-                                (user_id, master_id)).fetchall()[-1]
+    async def get_claim_by_master_and_service(self, user_id, master_id, service):
+        return self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ? AND service = ?;",
+                                (user_id, master_id, service)).fetchall()[-1]
+
+    async def get_claim_by_user_id(self, user_id):
+        return self.cur.execute("SELECT * FROM claims WHERE user_id = ?",
+                                (user_id,)).fetchall()
+
+    async def get_claim_by_id(self, id):
+        return self.cur.execute("SELECT * FROM claims WHERE id = ?",
+                                (id,)).fetchall()[-1]

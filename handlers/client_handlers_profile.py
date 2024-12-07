@@ -21,8 +21,7 @@ class ClientProfileState(StatesGroup):
 
 
 @router.message(Command("start"))
-async def start(message: Message, state: FSMContext):
-    user_manager = User()
+async def start(message: Message, state: FSMContext, user_manager: User):
     users = await user_manager.get_users()
     users_ids = [i[1] for i in users]
     if message.chat.id in users_ids:
@@ -33,12 +32,11 @@ async def start(message: Message, state: FSMContext):
 
 
 @router.callback_query(F.data == "start")
-async def client_show_profile_callback(callback: types.CallbackQuery, state: FSMContext):
-    user_manager = User()
+async def client_show_profile_callback(callback: types.CallbackQuery, state: FSMContext, user_manager: User):
     users = await user_manager.get_users()
     users_ids = [i[1] for i in users]
     if callback.message.chat.id in users_ids:
-        await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/menu.jpg'), caption=f"Меню: "), reply_markup=keyboards.client_menu_keyboard().as_markup())
+        await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/menu.jpg'), caption=f"Выберите нужную опцию:"), reply_markup=keyboards.client_menu_keyboard().as_markup())
     else:
         await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/salonregs.jpg'), caption=f"Привет! Я бот для регистраций на мероприятия DC. Отправь мне свое ФИО:"))
         await state.set_state(ClientProfileState.get_client_name)
@@ -66,26 +64,29 @@ async def get_client_tel(message: Message, state: FSMContext):
     await state.update_data(client_tel=client_tel)
     await state.set_state(ClientProfileState.user_await)
     user_data = await state.get_data()
-    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'), caption=f"Ваши данные: \n "
-                         f"Имя: {user_data['client_name']}\n "
-                         f"Телефон: {user_data['client_tel']}",
+    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'),
+                               caption=f"<b>ВАШИ ДАННЫЕ</b>"
+                                       f"\n\n<b>Имя:</b> {user_data['client_name']}"
+                                       f"\n<b>Телефон:</b> {user_data['client_tel']}"
+                                       f"\n\n<i>Выберите следующий шаг:</i>",
                          reply_markup=keyboards.get_client_tel_keyboard().as_markup())
 
 
 @router.message(F.data == "user_await")
 async def user_await(message: Message, state: FSMContext):
     user_data = await state.get_data()
-    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'), caption=f"Ваши данные: \n "
-                         f"Имя: {user_data['client_name']}\n "
-                         f"Телефон: {user_data['client_tel']}",
+    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'),
+                               caption=f"<b>ВАШИ ДАННЫЕ</b>"
+                                       f"\n\n<b>Имя:</b> {user_data['client_name']}"
+                                       f"\n<b>Телефон:</b> {user_data['client_tel']}"
+                                       f"\n\n<i>Выберите следующий шаг:</i>",
                          reply_markup=keyboards.get_client_tel_keyboard().as_markup())
     await state.set_state(ClientProfileState.user_await)
 
 
 # EDIT USER
 @router.callback_query(F.data == "client_data_edit")
-async def client_data_edit_callback(callback: types.CallbackQuery, state: FSMContext):
-    user_manager = User()
+async def client_data_edit_callback(callback: types.CallbackQuery, state: FSMContext, user_manager: User):
     users = await user_manager.get_users()
     users_ids = [i[1] for i in users]
     user_data = await state.get_data()
@@ -128,9 +129,11 @@ async def user_await(message: Message, state: FSMContext):
         await state.update_data(client_name=client_name)
         await state.set_state(ClientProfileState.user_await)
         user_data = await state.get_data()
-        await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'), caption=f"Ваши данные: \n "
-                             f"Имя: {user_data['client_name']}\n "
-                             f"Телефон: {user_data['client_tel']}",
+        await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'),
+                     caption=f"<b>ВАШИ ДАННЫЕ</b>"
+                             f"\n\n<b>Имя:</b> {user_data['client_name']}"
+                             f"\n<b>Телефон:</b> {user_data['client_tel']}"
+                             f"\n\n<i>Выберите следующий шаг:</i>",
                              reply_markup=keyboards.get_client_tel_keyboard().as_markup())
     else:
         await message.answer(f"К сожалению, этих данных недостаточно( "
@@ -144,18 +147,19 @@ async def user_await(message: Message, state: FSMContext):
     await state.update_data(client_tel=client_tel)
     await state.set_state(ClientProfileState.user_await)
     user_data = await state.get_data()
-    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'), caption=f"Ваши данные: \n "
-                         f"Имя: {user_data['client_name']}\n "
-                         f"Телефон: {user_data['client_tel']}",
+    await message.answer_photo(photo=FSInputFile('handlers/images/salonregs.jpg'),
+                 caption=f"<b>ВАШИ ДАННЫЕ</b>"
+                         f"\n\n<b>Имя:</b> {user_data['client_name']}"
+                         f"\n<b>Телефон:</b> {user_data['client_tel']}"
+                         f"\n\n<i>Выберите следующий шаг:</i>",
                          reply_markup=keyboards.get_client_tel_keyboard().as_markup())
     await state.set_state(ClientProfileState.user_await)
 
 
 # SAVE USER
 @router.callback_query(F.data == "client_data_save")
-async def client_data_save_callback(callback: types.CallbackQuery, state: FSMContext):
+async def client_data_save_callback(callback: types.CallbackQuery, state: FSMContext, user_manager: User):
     user_data = await state.get_data()
-    user_manager = User()
     users = await user_manager.get_users()
     users_ids = [i[1] for i in users]
     if callback.message.chat.id not in users_ids:
@@ -169,11 +173,10 @@ async def client_data_save_callback(callback: types.CallbackQuery, state: FSMCon
 
 # SHOW USER PROFILE
 @router.callback_query(F.data == "client_show_profile")
-async def client_show_profile_callback(callback: types.CallbackQuery):
-    user_manager = User()
+async def client_show_profile_callback(callback: types.CallbackQuery, user_manager: User):
     user_data = await user_manager.get_user_by_id_telegram(callback.message.chat.id)
-    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/profile.jpg'), caption=f"Ваши данные: \n "
-                                     f"Имя: {user_data[2]}\n "
-                                     f"Телефон: {user_data[3]}\n"
-                                     f"Выберите, что хотите изменить:"),
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/profile.jpg'),
+                             caption=f"<b>{user_data[2]}</b>"
+                                     f"\n<b>Телефон:</b> {user_data[3]}\n"
+                                     f"\n\n<i>Если хотите изменить данные, нажмите на кнопку «Редактировать»</i>"),
                                      reply_markup=keyboards.client_show_profile_keyboard().as_markup())
