@@ -1,12 +1,11 @@
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
-from aiogram import Router, F, Bot, types
+from aiogram import Router, F, types
 from aiogram.filters import Command
 from aiogram.types import Message, InputMediaPhoto
 from handlers import keyboards
 from aiogram.types import FSInputFile
-from database import db, User
-import datetime
+from database import User
 
 router = Router()
 
@@ -48,7 +47,7 @@ async def start(message: Message, state: FSMContext, user_manager: User):
 
 
 @router.callback_query(F.data == "start")
-async def client_show_profile_callback(callback: types.CallbackQuery, state: FSMContext, user_manager: User):
+async def start_callback(callback: types.CallbackQuery, state: FSMContext, user_manager: User):
     """
     callback в меню
     Проверяет наличие пользователя в базе данных
@@ -116,7 +115,7 @@ async def get_client_tel(message: Message, state: FSMContext):
 
 
 @router.message(F.data == "user_await")
-async def user_await(message: Message, state: FSMContext):
+async def user_await_state(message: Message, state: FSMContext):
     """
     Режим ожидания пользователя.
 
@@ -171,7 +170,7 @@ async def client_data_edit_callback(callback: types.CallbackQuery, state: FSMCon
 async def client_data_edit_name_callback(callback: types.CallbackQuery, state: FSMContext):
     """
     Редактирование имени пользователя.
-    Обрабатывает ввод нового имени пользователя.
+    Ставит статус ожидания ввода нового ФИО пользователя.
 
     :param callback:
     :param state:
@@ -182,10 +181,10 @@ async def client_data_edit_name_callback(callback: types.CallbackQuery, state: F
 
 
 @router.callback_query(F.data == "client_data_edit_tel")
-async def client_data_edit_name_callback(callback: types.CallbackQuery, state: FSMContext):
+async def client_data_edit_tel_callback(callback: types.CallbackQuery, state: FSMContext):
     """
     Редактирование номера телефона пользователя.
-    Обрабатывает ввод нового номера телефона пользователя.
+    Ставит статус ожидания ввода нового номера телефона пользователя.
 
     :param callback:
     :param state:
@@ -196,9 +195,9 @@ async def client_data_edit_name_callback(callback: types.CallbackQuery, state: F
 
 
 @router.message(ClientProfileState.edit_client_name)
-async def user_await(message: Message, state: FSMContext):
+async def edit_client_name_state(message: Message, state: FSMContext):
     """
-    Режим ожидания пользователя после редактирования.
+    Обрабатывает ввод нового имени пользователя.
 
     :param message:
     :param state:
@@ -222,9 +221,9 @@ async def user_await(message: Message, state: FSMContext):
 
 
 @router.message(ClientProfileState.edit_client_tel)
-async def user_await(message: Message, state: FSMContext):
+async def edit_client_tel_state(message: Message, state: FSMContext):
     """
-    Режим ожидания пользователя после редактирования.
+    Обрабатывает ввод нового телефона пользователя.
 
     :param message:
     :param state:

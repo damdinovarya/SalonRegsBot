@@ -1,13 +1,12 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import types
-from database import db
-from datetime import datetime, time
-from utils import rus_to_eng, eng_to_rus
+from datetime import datetime
+from utils import rus_to_eng
 
 
 def get_client_tel_keyboard():
     """
-    Создает клавиатуру с кнопками для сохранения или редактирования номера телефона пользователя.
+    Создает клавиатуру с кнопками для сохранения или редактирования данных пользователя.
     :return: InlineKeyboardBuilder объект с кнопками.
     """
     builder = InlineKeyboardBuilder()

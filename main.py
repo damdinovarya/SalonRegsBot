@@ -1,7 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
-from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers_profile, client_handlers_services, client_handlers_claims, client_handlers_admin, master_handlers
 from database import db, User, Claim, Admin
@@ -9,10 +8,11 @@ from yclients_things import APIClient, DataProcessor
 import config
 
 
-async def on_startup(dp: Dispatcher):
+async def setup_db(dp: Dispatcher):
     """
-    Инициализация при старте бота.
-    Соединение с базой данных и сохранение менеджеров пользователей, заявок и администраторов в диспетчере.
+    Настройка SQLite.
+    Соединение с базой данных, создание таблиц, если их нет и сохранение менеджеров пользователей,
+    заявок и администраторов в диспетчере.
     :param dp: Dispatcher
     :return: None
     """
@@ -50,7 +50,7 @@ async def main():
     """
     bot = Bot(token=config.BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher(storage=MemoryStorage())
-    await on_startup(dp)
+    await setup_db(dp)
     await setup_api(dp)
     dp.include_routers(client_handlers_profile.router, client_handlers_services.router,
                        client_handlers_claims.router, client_handlers_admin.router, master_handlers.router)
