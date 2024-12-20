@@ -28,6 +28,18 @@ class Claim:
                          (user_id, master_id, service, date, time, 0))
         self.con.commit()
 
+    async def update_claim_state(self, claim_id, state):
+        """
+
+
+        :param claim_id:
+        :param state:
+        :return: None
+        """
+        self.cur.execute("UPDATE claims SET state = ? WHERE id = ?;",
+                         (state, claim_id))
+        self.con.commit()
+
     async def get_claim_by_master_and_service(self, user_id, master_id, service):
         """
         Возвращает заявку пользователя
@@ -39,6 +51,13 @@ class Claim:
         """
         ans = self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ? AND service = ?;",
                                 (user_id, master_id, service)).fetchall()
+        return [] if ans == [] else ans[-1]
+
+
+    async def get_claim_by_all_param(self, user_id, master_id, service, date, time):
+        ans = self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ? "
+                               "AND service = ? AND date = ? AND time = ?;",
+                                (user_id, master_id, service, str(date), str(time))).fetchall()
         return [] if ans == [] else ans[-1]
 
     async def get_claim_by_user_id(self, user_id):
@@ -60,3 +79,14 @@ class Claim:
         """
         ans = self.cur.execute("SELECT * FROM claims WHERE id = ?", (id,)).fetchall()
         return [] if ans == [] else ans[-1]
+
+
+    async def get_claim_by_master(self, master_id):
+        """
+        Возвращает все заявки по master_id.
+
+        :param master_id: ID мастера.
+        :return: Кортеж с данными заявки.
+        """
+        return self.cur.execute("SELECT * FROM claims WHERE master_id = ?;",
+                                (master_id,)).fetchall()

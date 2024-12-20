@@ -202,8 +202,15 @@ def client_show_claims_keyboard(claims):
     for claim in claims:
         if int(claim[6]) != 2:
             date_object = datetime.strptime(claim[4], "%Y-%m-%d")
+            state = '🕓'
+            if int(claim[6]) == 1:
+                state = '✅'
+            if int(claim[6]) == 2:
+                state = '🤑'
+            if int(claim[6]) == 3:
+                state = '❌'
             builder.row(
-                types.InlineKeyboardButton(text=f"{claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}",
+                types.InlineKeyboardButton(text=f"{state} {claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}",
                                            callback_data=f"claim_{claim[0]}"),
                 width=1)
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"start"),
@@ -266,7 +273,79 @@ def admin_show_workers(workers):
 
 def admin_show_worker_(flag, worker_id):
     builder = InlineKeyboardBuilder()
-    if flag:
+    if flag == 1:
         builder.row(types.InlineKeyboardButton(text=f"Добавить username сотрудника", callback_data=f"admin_add_worker_username_{worker_id}"))
+    else:
+        builder.row(types.InlineKeyboardButton(text=f"Поменять username сотрудника",
+                                               callback_data=f"admin_remove_worker_username_{worker_id}"))
     builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data="admin_show_workers"))
+    return builder
+
+
+def admin_add_worker_username_(worker_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data=f"admin_show_worker_{worker_id}"))
+    return builder
+
+
+def worker_menu():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Новые заказы", callback_data="worker_show_claims_new"))
+    builder.row(types.InlineKeyboardButton(text="Выполненные заказы", callback_data="worker_show_completed"))
+    builder.row(types.InlineKeyboardButton(text="Отклоненные заказы", callback_data="worker_show_claims_rejected"))
+    return builder
+
+
+def worker_show_claims_new(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], "%Y-%m-%d")
+        builder.row(
+            types.InlineKeyboardButton(text=f"{'🕓' if claim[6] == 0 else '✅'} {claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}",
+                                       callback_data=f"worker_show_claim_{claim[0]}"),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"master_menu"),
+                width=1)
+    return builder
+
+
+def worker_show_completed(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], "%Y-%m-%d")
+        builder.row(
+            types.InlineKeyboardButton(text=f"🤑 {claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}",
+                                       callback_data=f"worker_show_claim_{claim[0]}"),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"master_menu"),
+                width=1)
+    return builder
+
+
+def worker_show_claims_rejected(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], "%Y-%m-%d")
+        builder.row(
+            types.InlineKeyboardButton(text=f"❌ {claim[3].capitalize()} | {date_object.strftime('%d.%m')} {claim[5]}",
+                                       callback_data=f"worker_show_claim_{claim[0]}"),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"master_menu"),
+                width=1)
+    return builder
+
+
+def worker_show_claim_():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"master_menu"),
+                width=1)
+    return builder
+
+
+def send_claim_admin_keyboard(claim_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Принять", callback_data=f"admin_answer_claim_{claim_id}_1"),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text="Отклонить", callback_data=f"admin_answer_claim_{claim_id}_3"),
+                width=1)
     return builder

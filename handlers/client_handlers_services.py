@@ -1,9 +1,9 @@
 from aiogram.fsm.state import State, StatesGroup
-from aiogram import Router, F, types
+from aiogram import Router, F, types, Bot
 from yclients_things import DataProcessor
 from aiogram.types import FSInputFile, InputMediaPhoto
 from handlers import keyboards
-from database import User, Claim
+from database import User, Claim, Worker
 from datetime import datetime
 from utils import eng_to_rus
 
@@ -145,7 +145,7 @@ async def client_send_claim_(callback: types.CallbackQuery, data_processor: Data
 
 @router.callback_query(F.data.startswith("send_claim_"))
 async def send_claim_(callback: types.CallbackQuery, data_processor: DataProcessor, user_manager: User,
-                      claim_manager: Claim):
+                      claim_manager: Claim, worker_manager: Worker, bot: Bot):
     """
     Сохраняет заявку в базу данных и уведомляет пользователя о её отправке.
 
@@ -153,6 +153,8 @@ async def send_claim_(callback: types.CallbackQuery, data_processor: DataProcess
     :param data_processor: Объект для обработки данных из YClients API.
     :param user_manager: Менеджер для работы с базой данных клиентов.
     :param claim_manager: Менеджер для работы с базой данных заявок.
+    :param worker_manager: Менеджер для работы с базой данных сотрудника.
+    :param bot:
     """
     call_data = callback.data.split("_")
     title = eng_to_rus(call_data[2])
@@ -161,10 +163,24 @@ async def send_claim_(callback: types.CallbackQuery, data_processor: DataProcess
     date_object = datetime.strptime(call_data[4], "%d%m%Y")
     time_object = datetime.strptime(call_data[5], "%H%M").time()
     user = await user_manager.get_user_by_id_telegram(callback.message.chat.id)
-    await claim_manager.create_claim(user[0], worker['id'], title, date_object.strftime('%Y-%m-%d'),
+    await claim_manager.create_claim(user[1], worker['id'], title, date_object.strftime('%Y-%m-%d'),
                                      time_object.strftime('%H:%M'))
+    worker_all_data = await worker_manager.get_worker_by_staff_id(worker['id'])
+    claim = await claim_manager.get_claim_by_all_param(user[1], worker['id'], title, date_object.strftime('%Y-%m-%d'),
+                                     time_object.strftime('%H:%M'))
+    print(claim)
+    if worker_all_data and worker_all_data[1] != -1:
+        await bot.send_message(worker_all_data[1], f"<b>НОВАЯ ЗАЯВКА</b>"
+                                                    f"\n\nЗаказчик: {user[2]}"
+                                                    f"\nTelegram: @{callback.from_user.username}"
+                                                    f"\n\n<b>Выбранная услуга:</b> {title.capitalize()}"
+                                                    f"\n<b>Стоимость услуги:</b> {price}₽"
+                                                    f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
+                                                    f"\n<b>Время:</b> {time_object.strftime('%H:%M')}",
+                               reply_markup=keyboards.send_claim_admin_keyboard(claim[0]).as_markup())
+
     await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/sended.jpg'),
-                                                            caption=f"<b>ВАША ЗАЯВКА ОТПРАВЛЕНА</b> | <i>Статус:</i> <pre>на рассмотрении</pre>"
+                                                            caption=f"<b>ВАША ЗАЯВКА ОТПРАВЛЕНА</b> | <i>Статус:</i> на рассмотрении 🕓"
                                                                     f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
                                                                     f"\n<b>Выбранная услуга:</b> {title.capitalize()}"
                                                                     f"\n<b>Стоимость услуги:</b> {price}₽"

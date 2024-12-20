@@ -16,6 +16,9 @@ router = Router()
 class ClientAdminState(StatesGroup):
     user_await = State()
 
+    add_worker_username = State()
+    update_worker_username = State()
+
 
 @router.message(Command("admin"))
 async def admin(message: Message, user_manager: User, admin_manager: Admin, bot: Bot):
@@ -163,18 +166,132 @@ async def admin_show_workers(callback: types.CallbackQuery, data_processor: Data
 
 
 @router.callback_query(F.data.startswith("admin_show_worker_"))
-async def admin_show_admin_(callback: types.CallbackQuery, worker_manager: Worker, data_processor: DataProcessor):
+async def admin_show_admin_(callback: types.CallbackQuery, worker_manager: Worker,
+                            data_processor: DataProcessor, state: FSMContext):
     """
     Показывает информацию об выбранном сотруднике.
 
     :param callback:
     :param worker_manager:
     :param data_processor:
+    :param state:
     """
+
     worker_id = int(callback.data.split("_")[3])
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, "Нет в базе данных", worker_id]
     worker = data_processor.get_staff_by_id(int(worker_id))
     await callback.message.edit_media(media=InputMediaPhoto(media=worker['avatar_big'],
-                                      caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
-                                            f"\n<i>Специализация: {worker['specialization']}</i>"
-                                            f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"),
-                                      reply_markup=keyboards.admin_show_worker_(0, worker_id).as_markup())
+                              caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
+                                      f"\n<i>Специализация: {worker['specialization']}</i>"
+                                      f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                      f"\n\n<b>Telegram ID:</b> {'Не указан' if worker_database[1] == -1 else worker_database[1]}"
+                                      f"\n<b>Telegram username:</b> {worker_database[2]}"
+                                      f"\n<b>YClients Staff ID:</b> {worker_database[3]}"),
+                                      reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()
+
+
+@router.callback_query(F.data.startswith("admin_add_worker_username_"))
+async def admin_add_worker_username_(callback: types.CallbackQuery, worker_manager: Worker,
+                                     data_processor: DataProcessor, state: FSMContext):
+    """
+    Включает режим ожидания получения username сотрудника.
+
+    :param callback:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    """
+    worker_id = int(callback.data.split("_")[4])
+    await state.set_state(ClientAdminState.add_worker_username)
+    await state.update_data(worker_id=worker_id)
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/admin.jpg'),
+                                                            caption=f"Отправьте username сотрудника: (Пример: @salon_regs_bot)"),
+                                      reply_markup=keyboards.admin_add_worker_username_(worker_id).as_markup())
+
+
+@router.message(ClientAdminState.add_worker_username)
+async def add_worker_username(message: Message, worker_manager: Worker, data_processor: DataProcessor, state: FSMContext):
+    """
+    Добавляет username выбранному сотруднику.
+
+    :param message:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    :return:
+    """
+    username = message.text
+    data = await state.get_data()
+    worker_id = data['worker_id']
+    await worker_manager.create_worker(username, worker_id)
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, "Нет в базе данных", worker_id]
+    worker = data_processor.get_staff_by_id(int(worker_id))
+    await message.answer_photo(photo=worker['avatar_big'],
+                                 caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
+                                         f"\n<i>Специализация: {worker['specialization']}</i>"
+                                         f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                         f"\n\n<b>Telegram ID:</b> {'Не указан' if worker_database[1] == -1 else worker_database[1]}"
+                                         f"\n<b>Telegram username:</b> {worker_database[2]}"
+                                         f"\n<b>YClients Staff ID:</b> {worker_database[3]}",
+                                 reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()
+
+
+@router.callback_query(F.data.startswith("admin_remove_worker_username_"))
+async def admin_remove_worker_username_(callback: types.CallbackQuery, worker_manager: Worker,
+                                     data_processor: DataProcessor, state: FSMContext):
+    """
+    Включает режим ожидания получения нового username сотрудника.
+
+    :param callback:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    """
+    worker_id = int(callback.data.split("_")[4])
+    await state.set_state(ClientAdminState.update_worker_username)
+    await state.update_data(worker_id=worker_id)
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile('handlers/images/admin.jpg'),
+                                                            caption=f"Отправьте новый username сотрудника: (Пример: @salon_regs_bot)"),
+                                      reply_markup=keyboards.admin_add_worker_username_(worker_id).as_markup())
+
+
+@router.message(ClientAdminState.update_worker_username)
+async def update_worker_username(message: Message, worker_manager: Worker, data_processor: DataProcessor, state: FSMContext):
+    """
+    Добавляет новый username выбранному сотруднику.
+
+    :param message:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    :return:
+    """
+    username = message.text
+    data = await state.get_data()
+    worker_id = data['worker_id']
+    await worker_manager.update_worker_username(username, worker_id)
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, "Нет в базе данных", worker_id]
+    worker = data_processor.get_staff_by_id(int(worker_id))
+    await message.answer_photo(photo=worker['avatar_big'],
+                                 caption=f"<b>{worker['name']}</b> ({worker['rating']}⭐️)"
+                                         f"\n<i>Специализация: {worker['specialization']}</i>"
+                                         f"\n\n<pre>{worker['information'].replace('<p>', '').replace('</p>', '')}</pre>"
+                                         f"\n\n<b>Telegram ID:</b> {'Не указан' if worker_database[1] == -1 else worker_database[1]}"
+                                         f"\n<b>Telegram username:</b> {worker_database[2]}"
+                                         f"\n<b>YClients Staff ID:</b> {worker_database[3]}",
+                                 reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()
