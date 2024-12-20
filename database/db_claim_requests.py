@@ -37,8 +37,9 @@ class Claim:
         :param service: Услуга, указанная в заявке.
         :return: Кортеж с данными заявки.
         """
-        return self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ? AND service = ?;",
-                                (user_id, master_id, service)).fetchall()[-1]
+        ans = self.cur.execute("SELECT * FROM claims WHERE user_id = ? AND master_id = ? AND service = ?;",
+                                (user_id, master_id, service)).fetchall()
+        return [] if ans == [] else ans[-1]
 
     async def get_claim_by_user_id(self, user_id):
         """
@@ -57,5 +58,5 @@ class Claim:
         :param id: ID заявки.
         :return: Кортеж с данными заявки.
         """
-        return self.cur.execute("SELECT * FROM claims WHERE id = ?",
-                                (id,)).fetchall()[-1]
+        ans = self.cur.execute("SELECT * FROM claims WHERE id = ?", (id,)).fetchall()
+        return [] if ans == [] else ans[-1]

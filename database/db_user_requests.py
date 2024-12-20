@@ -50,7 +50,8 @@ class User:
         :param id_telegram: Telegram ID пользователя.
         :return: Кортеж с данными пользователя или None, если пользователь не найден.
         """
-        return self.cur.execute("SELECT * FROM users WHERE id_telegram = ?;", (id_telegram,)).fetchall()[-1]
+        ans = self.cur.execute("SELECT * FROM users WHERE id_telegram = ?;", (id_telegram,)).fetchall()
+        return [] if ans == [] else ans[-1]
 
     async def get_users(self):
         """

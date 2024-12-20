@@ -220,3 +220,53 @@ def claim_keyboard():
     builder.row(types.InlineKeyboardButton(text="« Назад", callback_data=f"client_show_claims"),
                 width=1)
     return builder
+
+
+def await_claim_for_admins(user_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Отклонить", callback_data=f"reject_claim_for_admins_{user_id}"),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text="Принять", callback_data=f"accept_claim_for_admins_{user_id}"),
+                width=1)
+    return builder
+
+
+def admin_menu():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text="Админы", callback_data="admin_show_admins"))
+    builder.row(types.InlineKeyboardButton(text="Сотрудники", callback_data="admin_show_workers"))
+    builder.row(types.InlineKeyboardButton(text="Заявки", callback_data="admin_show_claims"))
+    builder.row(types.InlineKeyboardButton(text="Отправить сообщение", callback_data="admin_send_message"))
+    return builder
+
+
+def admin_show_admins(admins):
+    builder = InlineKeyboardBuilder()
+    for admin in admins:
+        builder.row(types.InlineKeyboardButton(text=f"{' '.join(admin[2].split()[:2])}",
+                                               callback_data=f"admin_show_admin_{admin[1]}"))
+    builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data="admin_menu"))
+    return builder
+
+
+def admin_show_admin_():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data="admin_show_admins"))
+    return builder
+
+
+def admin_show_workers(workers):
+    builder = InlineKeyboardBuilder()
+    for worker in workers:
+        builder.row(types.InlineKeyboardButton(text=f"{' '.join(worker['name'].split()[:2])}",
+                                               callback_data=f"admin_show_worker_{worker['id']}"))
+    builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data="admin_menu"))
+    return builder
+
+
+def admin_show_worker_(flag, worker_id):
+    builder = InlineKeyboardBuilder()
+    if flag:
+        builder.row(types.InlineKeyboardButton(text=f"Добавить username сотрудника", callback_data=f"admin_add_worker_username_{worker_id}"))
+    builder.row(types.InlineKeyboardButton(text=f"« Назад", callback_data="admin_show_workers"))
+    return builder

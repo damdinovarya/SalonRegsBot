@@ -118,6 +118,16 @@ class DataProcessor:
                             service_staff.append(worker)
                 return service_staff
 
+
+    def get_all_staffs(self):
+        """
+        Функция для получения всех сотрудников.
+
+        :return: Список сотрудников, которые занимаются данной услугой
+        """
+        self.get_start_data()
+        return self.staff_data_list
+
     def booking(self, staff_id, service_id, date_time):
         """
         Осуществляет запись клиента на услугу.

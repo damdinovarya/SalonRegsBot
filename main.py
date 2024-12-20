@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.bot import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import client_handlers_profile, client_handlers_services, client_handlers_claims, client_handlers_admin, master_handlers
-from database import db, User, Claim, Admin
+from database import db, User, Claim, Admin, Worker
 from yclients_things import APIClient, DataProcessor
 import config
 
@@ -20,6 +20,7 @@ async def setup_db(dp: Dispatcher):
     dp['user_manager'] = User()
     dp['claim_manager'] = Claim()
     dp['admin_manager'] = Admin()
+    dp['worker_manager'] = Worker()
     print('Successful db connect ✅')
 
 

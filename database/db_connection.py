@@ -51,9 +51,18 @@ class Database:
                 );
             """)
             self.cur.execute("""
+                CREATE TABLE IF NOT EXISTS workers (
+                    id INTEGER PRIMARY KEY,
+                    user_id BIGINT,
+                    username TEXT,
+                    staff_id BIGINT
+                );
+            """)
+            self.cur.execute("""
                 CREATE TABLE IF NOT EXISTS admins (
                     id INTEGER PRIMARY KEY,
-                    user_id BIGINT
+                    user_id BIGINT,
+                    state INTEGER
                 );
             """)
             self.con.commit()
