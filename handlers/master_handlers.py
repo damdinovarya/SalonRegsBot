@@ -1,3 +1,4 @@
+import pytz
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from aiogram import Router, F, types, Bot
@@ -7,15 +8,18 @@ from yclients_things import DataProcessor
 from handlers import keyboards
 from aiogram.types import FSInputFile
 from database import Admin, User, Worker, Claim
-from datetime import datetime
+from datetime import datetime, timedelta
 import config
 from handlers.keyboards import admin_menu
+from urllib.parse import quote
+from utils import create_google_calendar_link
 
 router = Router()
 
 
 class MasterState(StatesGroup):
     user_await = State()
+
 
 @router.message(Command("master"))
 async def master(message: Message, worker_manager: Worker):
@@ -53,7 +57,6 @@ async def master_menu(callback: types.CallbackQuery, worker_manager: Worker):
     """
     await callback.message.edit_caption(caption=f"Вот меню сотрудника:",
                                         reply_markup=keyboards.worker_menu().as_markup())
-
 
 
 @router.callback_query(F.data == "worker_show_claims_new")
@@ -151,7 +154,7 @@ async def claim_(callback: types.CallbackQuery, user_manager: User,
 
 @router.callback_query(F.data.startswith("admin_answer_claim_"))
 async def admin_answer_claim_(callback: types.CallbackQuery, user_manager: User,
-                 data_processor: DataProcessor, claim_manager: Claim, bot: Bot):
+                              data_processor: DataProcessor, claim_manager: Claim, bot: Bot):
     """
     Показывает информацию о конкретной заявке.
 
@@ -176,22 +179,26 @@ async def admin_answer_claim_(callback: types.CallbackQuery, user_manager: User,
     price = data_processor.get_service_price_by_name(claim[3])
     date_object = datetime.strptime(claim[4], "%Y-%m-%d")
     time_object = datetime.strptime(claim[5], "%H:%M").time()
+
+    event_url = create_google_calendar_link(date_object, time_object, worker['name'], claim[3], price)
+
     user = await user_manager.get_user_by_id_telegram(claim[1])
     user_username = await bot.get_chat(user[1])
     await callback.message.edit_text(f"<b>ЗАЯВКА</b> | <i>Статус:</i> {state}"
-                                    f"\n\nЗаказчик: {user[2]}"
-                                    f"\nTelegram: @{user_username.username}"
+                                     f"\n\nЗаказчик: {user[2]}"
+                                     f"\nTelegram: @{user_username.username}"
+                                     f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
+                                     f"\n<b>Выбранная услуга:</b> {claim[3].capitalize()}"
+                                     f"\n<b>Стоимость услуги:</b> {price}₽"
+                                     f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
+                                     f"\n<b>Время:</b> {time_object.strftime('%H:%M')}"
+                                     f"\n\nНажмите /master чтобы посмотреть меню сотрудника.")
+
+    await bot.send_message(user[1], f"<b>ОТКЛИК ПО ЗАЯВКЕ</b> | <i>Статус:</i> {state}"
                                     f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
                                     f"\n<b>Выбранная услуга:</b> {claim[3].capitalize()}"
                                     f"\n<b>Стоимость услуги:</b> {price}₽"
                                     f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
                                     f"\n<b>Время:</b> {time_object.strftime('%H:%M')}"
-                                    f"\n\nНажмите /master чтобы посмотреть меню сотрудника.")
-
-    await bot.send_message(user[1], f"<b>ОТКЛИК ПО ЗАЯВКЕ</b> | <i>Статус:</i> {state}"
-                                                    f"\n\n<b>Сотрудник:</b> {worker['name']} ({worker['rating']}⭐️)"
-                                                    f"\n<b>Выбранная услуга:</b> {claim[3].capitalize()}"
-                                                    f"\n<b>Стоимость услуги:</b> {price}₽"
-                                                    f"\n<b>Дата:</b> {date_object.strftime('%d.%m.%Y')}"
-                                                    f"\n<b>Время:</b> {time_object.strftime('%H:%M')}"
-                                                    f"\n\nНажмите на /start чтобы попасть в главное меню.")
+                                    f"\n\nДобавить мероприятие в календарь: <a href='{event_url}'>ДОБАВИТЬ В КАЛЕНДАРЬ</a>"
+                                    f"\n\nНажмите на /start чтобы попасть в главное меню.")
