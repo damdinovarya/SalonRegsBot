@@ -27,6 +27,8 @@ def load_users_data(_conn):
     SELECT id, id_telegram, fullname, tnumber
     FROM users
     """
+
+    print(query)
     return pd.read_sql_query(query, _conn)
 
 
@@ -165,19 +167,26 @@ def main():
             min_date = daily_claims["date"].min()
             max_date = daily_claims["date"].max()
 
-            st.write("Фильтр по дате:")
-            start_date, end_date = st.slider(
-                "Выберите интервал дат",
-                min_value=min_date,
-                max_value=max_date,
-                value=(min_date, max_date),
-            )
+            if min_date == max_date:
+                st.warning("Все заявки имеют одну и ту же дату. Фильтр недоступен.")
+            else:
+                min_date = min_date.date()
+                max_date = max_date.date()
 
-            filtered_df = daily_claims[
-                (daily_claims["date"] >= start_date)
-                & (daily_claims["date"] <= end_date)
-            ]
-            st.dataframe(filtered_df)
+                st.write("Фильтр по дате:")
+                start_date, end_date = st.slider(
+                    "Выберите интервал дат",
+                    min_value=min_date,
+                    max_value=max_date,
+                    value=(min_date, max_date),
+                    format="YYYY-MM-DD",
+                )
+
+                filtered_df = daily_claims[
+                    (daily_claims["date"] >= pd.Timestamp(start_date))
+                    & (daily_claims["date"] <= pd.Timestamp(end_date))
+                ]
+                st.dataframe(filtered_df)
         else:
             st.info("Даты заявок не преобразовались или отсутствуют.")
     else:
