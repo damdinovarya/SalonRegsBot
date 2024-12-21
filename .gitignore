@@ -1,2 +1,5 @@
-.venv
-config
+.venv/
+venv/
+config.py
+__pycache__/
+data.db
