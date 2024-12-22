@@ -12,8 +12,8 @@ def rus_to_eng(word):
     :param word: Строка на русском языке, которую нужно преобразовать.
     :return: Преобразованная строка, состоящая из латинских символов и цифр.
     """
-    data_rus = "абвгдеёжзийклмопрстуфхцчшщъыьэюя"
-    data_eng = "0123456789abcdefghiklmnopqrstvwx"
+    data_rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя "
+    data_eng = "0123456789abcdefghiklmnopqrstvwxyz"
     mapping_dict = {k: v for k, v in zip(data_rus, data_eng)}
     s = ''
     for letter in word:
@@ -29,8 +29,8 @@ def eng_to_rus(word):
     :param word: Строка, закодированная латинскими символами или цифрами.
     :return: Преобразованная строка, состоящая из русских букв.
     """
-    data_rus = "абвгдеёжзийклмопрстуфхцчшщъыьэюя"
-    data_eng = "0123456789abcdefghiklmnopqrstvwx"
+    data_rus = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя "
+    data_eng = "0123456789abcdefghiklmnopqrstvwxyz"
     mapping_dict = {k: v for k, v in zip(data_eng, data_rus)}
     s = ''
     for letter in word:
