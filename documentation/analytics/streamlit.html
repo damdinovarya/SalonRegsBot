@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>analytics.streamlit API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>analytics.streamlit</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="analytics.streamlit.create_connection"><code class="name flex">
+<span>def <span class="ident">create_connection</span></span>(<span>db_file='data.db')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_connection(db_file=DB_NAME):
+    &#34;&#34;&#34;
+    Создаёт соединение с SQLite базой.
+    &#34;&#34;&#34;
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except Exception as e:
+        st.error(f&#34;Ошибка при подключении к базе данных: {e}&#34;)
+    return conn</code></pre>
+</details>
+<div class="desc"><p>Создаёт соединение с SQLite базой.</p></div>
+</dd>
+<dt id="analytics.streamlit.load_admins_data"><code class="name flex">
+<span>def <span class="ident">load_admins_data</span></span>(<span>_conn)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@st.cache_data
+def load_admins_data(_conn):
+    &#34;&#34;&#34;
+    Загружает данные из таблицы `admins`.
+    &#34;&#34;&#34;
+    query = &#34;&#34;&#34;
+    SELECT id, user_id, state
+    FROM admins
+    &#34;&#34;&#34;
+    return pd.read_sql_query(query, _conn)</code></pre>
+</details>
+<div class="desc"><p>Загружает данные из таблицы <code>admins</code>.</p></div>
+</dd>
+<dt id="analytics.streamlit.load_claims_data"><code class="name flex">
+<span>def <span class="ident">load_claims_data</span></span>(<span>_conn)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@st.cache_data
+def load_claims_data(_conn):
+    &#34;&#34;&#34;
+    Загружает данные из таблицы `claims`.
+    &#34;&#34;&#34;
+    query = &#34;&#34;&#34;
+    SELECT id, user_id, master_id, service, date, time, state
+    FROM claims
+    &#34;&#34;&#34;
+    return pd.read_sql_query(query, _conn)</code></pre>
+</details>
+<div class="desc"><p>Загружает данные из таблицы <code>claims</code>.</p></div>
+</dd>
+<dt id="analytics.streamlit.load_users_data"><code class="name flex">
+<span>def <span class="ident">load_users_data</span></span>(<span>_conn)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@st.cache_data
+def load_users_data(_conn):
+    &#34;&#34;&#34;
+    Загружает данные из таблицы `users`.
+    &#34;&#34;&#34;
+    query = &#34;&#34;&#34;
+    SELECT id, id_telegram, fullname, tnumber
+    FROM users
+    &#34;&#34;&#34;
+
+    print(query)
+    return pd.read_sql_query(query, _conn)</code></pre>
+</details>
+<div class="desc"><p>Загружает данные из таблицы <code>users</code>.</p></div>
+</dd>
+<dt id="analytics.streamlit.load_workers_data"><code class="name flex">
+<span>def <span class="ident">load_workers_data</span></span>(<span>_conn)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@st.cache_data
+def load_workers_data(_conn):
+    &#34;&#34;&#34;
+    Загружает данные из таблицы `workers`.
+    &#34;&#34;&#34;
+    query = &#34;&#34;&#34;
+    SELECT id, user_id, username, staff_id
+    FROM workers
+    &#34;&#34;&#34;
+    return pd.read_sql_query(query, _conn)</code></pre>
+</details>
+<div class="desc"><p>Загружает данные из таблицы <code>workers</code>.</p></div>
+</dd>
+<dt id="analytics.streamlit.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    st.set_page_config(page_title=&#34;Аналитика Бота&#34;, layout=&#34;wide&#34;)
+    st.title(&#34;Аналитика по данным из SQLite&#34;)
+
+    # Инициализация session_state для хранения данных
+    if &#34;users&#34; not in st.session_state:
+        refresh_data()
+
+    # Кнопка обновления данных
+    if st.button(&#34;Обновить данные&#34;):
+        refresh_data()
+
+    # Загружаем данные из session_state
+    users_df = st.session_state[&#34;users&#34;]
+    claims_df = st.session_state[&#34;claims&#34;]
+    workers_df = st.session_state[&#34;workers&#34;]
+    admins_df = st.session_state[&#34;admins&#34;]
+
+    # --- Общая статистика ---
+    st.subheader(&#34;Общая статистика&#34;)
+
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric(&#34;Всего пользователей&#34;, len(users_df))
+    with col2:
+        st.metric(&#34;Всего заявок&#34;, len(claims_df))
+    with col3:
+        st.metric(&#34;Всего мастеров&#34;, len(workers_df))
+    with col4:
+        st.metric(&#34;Всего админов&#34;, len(admins_df))
+
+    st.markdown(&#34;---&#34;)
+
+    # --- График: Распределение заявок по услугам ---
+    st.subheader(&#34;Распределение заявок по услугам&#34;)
+
+    if not claims_df.empty:
+        service_counts = claims_df[&#34;service&#34;].value_counts().reset_index()
+        service_counts.columns = [&#34;service&#34;, &#34;count&#34;]
+
+        chart_service = (
+            alt.Chart(service_counts)
+            .mark_bar()
+            .encode(
+                x=alt.X(&#34;service&#34;, sort=&#34;-y&#34;, title=&#34;Услуга&#34;),
+                y=alt.Y(&#34;count&#34;, title=&#34;Количество заявок&#34;),
+                tooltip=[&#34;service&#34;, &#34;count&#34;],
+            )
+            .properties(width=700, height=400, title=&#34;Количество заявок по услугам&#34;)
+        )
+        st.altair_chart(chart_service, use_container_width=True)
+    else:
+        st.info(&#34;Нет данных о заявках в таблице claims.&#34;)
+
+    st.markdown(&#34;---&#34;)
+
+    # --- График: Заявки по датам (линейный график) ---
+    st.subheader(&#34;Заявки по датам&#34;)
+
+    if not claims_df.empty:
+        # Преобразуем поле date в формат даты
+        claims_df[&#34;date&#34;] = pd.to_datetime(claims_df[&#34;date&#34;], errors=&#34;coerce&#34;)
+
+        # Группируем заявки по дате
+        daily_claims = claims_df.groupby(&#34;date&#34;)[&#34;id&#34;].count().reset_index()
+        daily_claims.columns = [&#34;date&#34;, &#34;count&#34;]
+
+        if not daily_claims.empty:
+            chart_date = (
+                alt.Chart(daily_claims)
+                .mark_line(point=True)
+                .encode(
+                    x=alt.X(&#34;date:T&#34;, title=&#34;Дата&#34;),
+                    y=alt.Y(&#34;count:Q&#34;, title=&#34;Количество заявок&#34;),
+                    tooltip=[&#34;date:T&#34;, &#34;count:Q&#34;],
+                )
+                .properties(width=700, height=400, title=&#34;Заявки по датам&#34;)
+            )
+            st.altair_chart(chart_date, use_container_width=True)
+
+            # Фильтр по интервалу дат
+            min_date = daily_claims[&#34;date&#34;].min()
+            max_date = daily_claims[&#34;date&#34;].max()
+
+            if min_date == max_date:
+                st.warning(&#34;Все заявки имеют одну и ту же дату. Фильтр недоступен.&#34;)
+            else:
+                min_date = min_date.date()
+                max_date = max_date.date()
+
+                st.write(&#34;Фильтр по дате:&#34;)
+                start_date, end_date = st.slider(
+                    &#34;Выберите интервал дат&#34;,
+                    min_value=min_date,
+                    max_value=max_date,
+                    value=(min_date, max_date),
+                    format=&#34;YYYY-MM-DD&#34;,
+                )
+
+                filtered_df = daily_claims[
+                    (daily_claims[&#34;date&#34;] &gt;= pd.Timestamp(start_date))
+                    &amp; (daily_claims[&#34;date&#34;] &lt;= pd.Timestamp(end_date))
+                ]
+                st.dataframe(filtered_df)
+        else:
+            st.info(&#34;Даты заявок не преобразовались или отсутствуют.&#34;)
+    else:
+        st.info(&#34;Нет данных о заявках для анализа по датам.&#34;)
+
+    st.markdown(&#34;---&#34;)
+
+    # --- График: Распределение заявок по статусам ---
+    st.subheader(&#34;Распределение заявок по статусам&#34;)
+
+    if not claims_df.empty:
+        state_counts = claims_df[&#34;state&#34;].value_counts().reset_index()
+        state_counts.columns = [&#34;state&#34;, &#34;count&#34;]
+
+        chart_state = (
+            alt.Chart(state_counts)
+            .mark_bar()
+            .encode(
+                x=alt.X(&#34;state:O&#34;, sort=&#34;-y&#34;, title=&#34;Статус заявки&#34;),
+                y=alt.Y(&#34;count:Q&#34;, title=&#34;Количество&#34;),
+                tooltip=[&#34;state&#34;, &#34;count&#34;],
+            )
+            .properties(width=700, height=400, title=&#34;Количество заявок по статусам&#34;)
+        )
+        st.altair_chart(chart_state, use_container_width=True)
+    else:
+        st.info(&#34;Нет данных о заявках для анализа статусов.&#34;)
+
+    st.markdown(&#34;---&#34;)
+
+    # --- График: Количество заявок по мастерам (master_id) ---
+    st.subheader(&#34;Количество заявок по мастерам&#34;)
+
+    if not claims_df.empty:
+        master_counts = claims_df[&#34;master_id&#34;].value_counts().reset_index()
+        master_counts.columns = [&#34;master_id&#34;, &#34;count&#34;]
+
+        if not workers_df.empty:
+            workers_map = workers_df.set_index(&#34;user_id&#34;)[&#34;username&#34;].to_dict()
+            master_counts[&#34;username&#34;] = (
+                master_counts[&#34;master_id&#34;].map(workers_map).fillna(&#34;Неизвестно&#34;)
+            )
+        else:
+            master_counts[&#34;username&#34;] = master_counts[&#34;master_id&#34;]
+
+        chart_master = (
+            alt.Chart(master_counts)
+            .mark_bar()
+            .encode(
+                x=alt.X(&#34;username:N&#34;, sort=&#34;-y&#34;, title=&#34;Мастер&#34;),
+                y=alt.Y(&#34;count:Q&#34;, title=&#34;Количество заявок&#34;),
+                tooltip=[&#34;username&#34;, &#34;count&#34;],
+            )
+            .properties(width=700, height=400, title=&#34;Количество заявок по мастерам&#34;)
+        )
+        st.altair_chart(chart_master, use_container_width=True)
+    else:
+        st.info(&#34;Нет данных о мастерах или заявках.&#34;)
+
+    st.markdown(&#34;---&#34;)
+
+    # --- Последние 10 заявок ---
+    st.subheader(&#34;Последние 10 заявок&#34;)
+    if not claims_df.empty:
+        st.write(
+            claims_df.sort_values(by=&#34;id&#34;, ascending=False)
+            .head(10)
+            .reset_index(drop=True)
+        )
+    else:
+        st.info(&#34;Нет данных о заявках.&#34;)
+
+    st.markdown(&#34;---&#34;)
+
+    # --- Данные о пользователях ---
+    st.subheader(&#34;Полный список пользователей&#34;)
+    st.dataframe(users_df)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="analytics.streamlit.refresh_data"><code class="name flex">
+<span>def <span class="ident">refresh_data</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def refresh_data():
+    &#34;&#34;&#34;
+    Функция для обновления данных в session_state.
+    &#34;&#34;&#34;
+    conn = create_connection()
+    if conn:
+        st.session_state[&#34;users&#34;] = load_users_data(conn)
+        st.session_state[&#34;claims&#34;] = load_claims_data(conn)
+        st.session_state[&#34;workers&#34;] = load_workers_data(conn)
+        st.session_state[&#34;admins&#34;] = load_admins_data(conn)
+        conn.close()
+    else:
+        st.error(&#34;Не удалось подключиться к базе данных.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Функция для обновления данных в session_state.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="analytics" href="index.html">analytics</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="analytics.streamlit.create_connection" href="#analytics.streamlit.create_connection">create_connection</a></code></li>
+<li><code><a title="analytics.streamlit.load_admins_data" href="#analytics.streamlit.load_admins_data">load_admins_data</a></code></li>
+<li><code><a title="analytics.streamlit.load_claims_data" href="#analytics.streamlit.load_claims_data">load_claims_data</a></code></li>
+<li><code><a title="analytics.streamlit.load_users_data" href="#analytics.streamlit.load_users_data">load_users_data</a></code></li>
+<li><code><a title="analytics.streamlit.load_workers_data" href="#analytics.streamlit.load_workers_data">load_workers_data</a></code></li>
+<li><code><a title="analytics.streamlit.main" href="#analytics.streamlit.main">main</a></code></li>
+<li><code><a title="analytics.streamlit.refresh_data" href="#analytics.streamlit.refresh_data">refresh_data</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

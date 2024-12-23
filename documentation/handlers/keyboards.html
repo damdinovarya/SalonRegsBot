@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>handlers.keyboards API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>handlers.keyboards</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="handlers.keyboards.admin_add_worker_username_"><code class="name flex">
+<span>def <span class="ident">admin_add_worker_username_</span></span>(<span>worker_id)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_add_worker_username_(worker_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=f&#34;« Назад&#34;, callback_data=f&#34;admin_show_worker_{worker_id}&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.admin_menu"><code class="name flex">
+<span>def <span class="ident">admin_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_menu():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Админы&#34;, callback_data=&#34;admin_show_admins&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Сотрудники&#34;, callback_data=&#34;admin_show_workers&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Заявки&#34;, callback_data=&#34;admin_show_claims&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Отправить сообщение&#34;, callback_data=&#34;admin_send_message&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.admin_show_admin_"><code class="name flex">
+<span>def <span class="ident">admin_show_admin_</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_show_admin_():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=f&#34;« Назад&#34;, callback_data=&#34;admin_show_admins&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.admin_show_admins"><code class="name flex">
+<span>def <span class="ident">admin_show_admins</span></span>(<span>admins)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_show_admins(admins):
+    builder = InlineKeyboardBuilder()
+    for admin in admins:
+        builder.row(types.InlineKeyboardButton(text=f&#34;{&#39; &#39;.join(admin[2].split()[:2])}&#34;,
+                                               callback_data=f&#34;admin_show_admin_{admin[1]}&#34;))
+    builder.row(types.InlineKeyboardButton(text=f&#34;« Назад&#34;, callback_data=&#34;admin_menu&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.admin_show_worker_"><code class="name flex">
+<span>def <span class="ident">admin_show_worker_</span></span>(<span>flag, worker_id)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_show_worker_(flag, worker_id):
+    builder = InlineKeyboardBuilder()
+    if flag == 1:
+        builder.row(types.InlineKeyboardButton(text=f&#34;Добавить username сотрудника&#34;, callback_data=f&#34;admin_add_worker_username_{worker_id}&#34;))
+    else:
+        builder.row(types.InlineKeyboardButton(text=f&#34;Поменять username сотрудника&#34;,
+                                               callback_data=f&#34;admin_remove_worker_username_{worker_id}&#34;))
+    builder.row(types.InlineKeyboardButton(text=f&#34;« Назад&#34;, callback_data=&#34;admin_show_workers&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.admin_show_workers"><code class="name flex">
+<span>def <span class="ident">admin_show_workers</span></span>(<span>workers)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def admin_show_workers(workers):
+    builder = InlineKeyboardBuilder()
+    for worker in workers:
+        builder.row(types.InlineKeyboardButton(text=f&#34;{&#39; &#39;.join(worker[&#39;name&#39;].split()[:2])}&#34;,
+                                               callback_data=f&#34;admin_show_worker_{worker[&#39;id&#39;]}&#34;))
+    builder.row(types.InlineKeyboardButton(text=f&#34;« Назад&#34;, callback_data=&#34;admin_menu&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.await_claim_for_admins"><code class="name flex">
+<span>def <span class="ident">await_claim_for_admins</span></span>(<span>user_id)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def await_claim_for_admins(user_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Отклонить&#34;, callback_data=f&#34;reject_claim_for_admins_{user_id}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;Принять&#34;, callback_data=f&#34;accept_claim_for_admins_{user_id}&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.claim_keyboard"><code class="name flex">
+<span>def <span class="ident">claim_keyboard</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def claim_keyboard():
+    &#34;&#34;&#34;
+    Создает клавиатуру для возврата к списку заявок пользователя.
+    :return: InlineKeyboardBuilder объект с кнопкой.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;client_show_claims&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для возврата к списку заявок пользователя.
+:return: InlineKeyboardBuilder объект с кнопкой.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_data_edit_keyboard"><code class="name flex">
+<span>def <span class="ident">client_data_edit_keyboard</span></span>(<span>name, tel)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_data_edit_keyboard(name, tel):
+    &#34;&#34;&#34;
+    Создает клавиатуру для перехода к редактированаю имени или телефона пользователя.
+    :param name: Имя пользователя.
+    :param tel: Телефон пользователя.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=f&#34;{name}&#34;, callback_data=&#34;client_data_edit_name&#34;),
+                types.InlineKeyboardButton(text=f&#34;{tel}&#34;, callback_data=&#34;client_data_edit_tel&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для перехода к редактированаю имени или телефона пользователя.
+:param name: Имя пользователя.
+:param tel: Телефон пользователя.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_menu_keyboard"><code class="name flex">
+<span>def <span class="ident">client_menu_keyboard</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_menu_keyboard():
+    &#34;&#34;&#34;
+    Создает клавиатуру главного меню пользователя.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Услуги&#34;, callback_data=&#34;client_show_services&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Мои заявки&#34;, callback_data=&#34;client_show_claims&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Профиль&#34;, callback_data=&#34;client_show_profile&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру главного меню пользователя.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_send_claim_keyboard"><code class="name flex">
+<span>def <span class="ident">client_send_claim_keyboard</span></span>(<span>worker, title, date, time_)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_send_claim_keyboard(worker, title, date, time_):
+    &#34;&#34;&#34;
+    Создает клавиатуру для подтверждения или возврата при отправке заявки.
+    :param worker: Данные сотрудника.
+    :param title: Название услуги.
+    :param date: Дата записи.
+    :param time_: Время записи.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#39;Сохранить&#39;,
+                                           callback_data=f&#34;send_claim_{rus_to_eng(title)}_{worker[&#39;id&#39;]}_{date}_{time_}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#39;« Назад к &#34;Сотрудникам&#34;&#39;,
+                                           callback_data=f&#34;client_show_services_{rus_to_eng(title)}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;,
+                                           callback_data=f&#34;client_pick_time_{rus_to_eng(title)}_{worker[&#39;id&#39;]}_{date}&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для подтверждения или возврата при отправке заявки.
+:param worker: Данные сотрудника.
+:param title: Название услуги.
+:param date: Дата записи.
+:param time_: Время записи.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_calendar_dates_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_calendar_dates_keyboard</span></span>(<span>worker, title, dates)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_calendar_dates_keyboard(worker, title, dates):
+    &#34;&#34;&#34;
+    Создает клавиатуру с доступными датами для записи.
+    :param worker: Данные сотрудника.
+    :param title: Название услуги.
+    :param dates: Список доступных дат.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    buttons = []
+    k = 0
+    for date in dates:
+        date_object = datetime.strptime(date, &#34;%Y-%m-%d&#34;)
+        buttons.append(
+            types.InlineKeyboardButton(text=f&#34;{date_object.strftime(&#39;%d.%m.%Y&#39;)}&#34;,
+                                       callback_data=f&#34;client_pick_time_{rus_to_eng(title)}_{worker[&#39;id&#39;]}_{date_object.strftime(&#39;%d%m%Y&#39;)}&#34;))
+    builder.row(*buttons, width=3)
+    builder.row(types.InlineKeyboardButton(text=&#39;« Назад к &#34;Сотрудникам&#34;&#39;,
+                                           callback_data=f&#34;client_show_services_{rus_to_eng(title)}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;,
+                                           callback_data=f&#34;client_show_workers_{rus_to_eng(title)}_{worker[&#39;id&#39;]}&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру с доступными датами для записи.
+:param worker: Данные сотрудника.
+:param title: Название услуги.
+:param dates: Список доступных дат.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_calendar_times_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_calendar_times_keyboard</span></span>(<span>worker, title, date, times)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_calendar_times_keyboard(worker, title, date, times):
+    &#34;&#34;&#34;
+    Создает клавиатуру с доступным временем для записи.
+    :param worker: Данные сотрудника.
+    :param title: Название услуги.
+    :param date: Дата записи.
+    :param times: Список доступного времени.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    buttons = []
+    k = 0
+    for time in times:
+        time_object = datetime.strptime(time, &#34;%H:%M&#34;).time()
+        buttons.append(
+            types.InlineKeyboardButton(text=f&#34;{time_object.strftime(&#39;%H:%M&#39;)}&#34;,
+                                       callback_data=f&#34;client_send_claim_{rus_to_eng(title)}_{worker[&#39;id&#39;]}_{date}_{time_object.strftime(&#39;%H%M&#39;)}&#34;))
+    builder.row(*buttons, width=3)
+    builder.row(types.InlineKeyboardButton(text=&#39;« Назад к &#34;Сотрудникам&#34;&#39;,
+                                           callback_data=f&#34;client_show_services_{rus_to_eng(title)}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;,
+                                           callback_data=f&#34;client_show_calendar_{worker[&#39;id&#39;]}_{rus_to_eng(title)}&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру с доступным временем для записи.
+:param worker: Данные сотрудника.
+:param title: Название услуги.
+:param date: Дата записи.
+:param times: Список доступного времени.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_claims_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_claims_keyboard</span></span>(<span>claims)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_claims_keyboard(claims):
+    &#34;&#34;&#34;
+    Создает клавиатуру для отображения списка заявок пользователя.
+    :param claims: Список заявок пользователя.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        if int(claim[6]) != 2:
+            date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+            state = &#39;🕓&#39;
+            if int(claim[6]) == 1:
+                state = &#39;✅&#39;
+            if int(claim[6]) == 2:
+                state = &#39;🤑&#39;
+            if int(claim[6]) == 3:
+                state = &#39;❌&#39;
+            builder.row(
+                types.InlineKeyboardButton(text=f&#34;{state} {claim[3].capitalize()} | {date_object.strftime(&#39;%d.%m&#39;)} {claim[5]}&#34;,
+                                           callback_data=f&#34;claim_{claim[0]}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;start&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для отображения списка заявок пользователя.
+:param claims: Список заявок пользователя.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_profile_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_profile_keyboard</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_profile_keyboard():
+    &#34;&#34;&#34;
+    Создает клавиатуру для профиля пользователя с кнопками редактирования и возврата.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Редактировать&#34;, callback_data=&#34;client_data_edit&#34;),
+                types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=&#34;start&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для профиля пользователя с кнопками редактирования и возврата.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_services_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_services_keyboard</span></span>(<span>client_services_titles, titles_prices)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_services_keyboard(client_services_titles, titles_prices):
+    &#34;&#34;&#34;
+    Создает клавиатуру с кнопками для выбора услуг.
+    :param client_services_titles: Список названий услуг.
+    :param titles_prices: Список цен услуг.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    for i in range(len(client_services_titles)):
+        builder.row(
+            types.InlineKeyboardButton(text=f&#34;{client_services_titles[i].capitalize()} | {titles_prices[i]}₽&#34;,
+                                       callback_data=f&#34;client_show_services_{rus_to_eng(client_services_titles[i])}&#34;),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=&#34;start&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру с кнопками для выбора услуг.
+:param client_services_titles: Список названий услуг.
+:param titles_prices: Список цен услуг.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_worker_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_worker_keyboard</span></span>(<span>worker, title)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_worker_keyboard(worker, title):
+    &#34;&#34;&#34;
+    Создает клавиатуру для выбранного сотрудника с кнопкой для выбора времени.
+    :param worker: Данные сотрудника.
+    :param title: Название услуги.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Выбрать время&#34;,
+                                           callback_data=f&#34;client_show_calendar_{worker[&#39;id&#39;]}_{rus_to_eng(title)}&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;client_show_services_{rus_to_eng(title)}&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для выбранного сотрудника с кнопкой для выбора времени.
+:param worker: Данные сотрудника.
+:param title: Название услуги.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.client_show_workers_keyboard"><code class="name flex">
+<span>def <span class="ident">client_show_workers_keyboard</span></span>(<span>workers, title)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_show_workers_keyboard(workers, title):
+    &#34;&#34;&#34;
+    Создает клавиатуру с кнопками для выбора сотрудников, предоставляющих выбранную услугу.
+    :param workers: Список сотрудников.
+    :param title: Название услуги.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    for worker in workers:
+        builder.row(
+            types.InlineKeyboardButton(text=f&#34;{worker[&#39;name&#39;]} ({worker[&#39;rating&#39;]}⭐️)&#34;,
+                                       callback_data=f&#34;client_show_workers_{rus_to_eng(title)}_{worker[&#39;id&#39;]}&#34;),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;client_show_services&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру с кнопками для выбора сотрудников, предоставляющих выбранную услугу.
+:param workers: Список сотрудников.
+:param title: Название услуги.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.get_client_tel_keyboard"><code class="name flex">
+<span>def <span class="ident">get_client_tel_keyboard</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_client_tel_keyboard():
+    &#34;&#34;&#34;
+    Создает клавиатуру с кнопками для сохранения или редактирования данных пользователя.
+    :return: InlineKeyboardBuilder объект с кнопками.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Сохранить&#34;, callback_data=&#34;client_data_save&#34;),
+                types.InlineKeyboardButton(text=&#34;Редактировать&#34;, callback_data=&#34;client_data_edit&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру с кнопками для сохранения или редактирования данных пользователя.
+:return: InlineKeyboardBuilder объект с кнопками.</p></div>
+</dd>
+<dt id="handlers.keyboards.send_claim_admin_keyboard"><code class="name flex">
+<span>def <span class="ident">send_claim_admin_keyboard</span></span>(<span>claim_id)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def send_claim_admin_keyboard(claim_id):
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Принять&#34;, callback_data=f&#34;admin_answer_claim_{claim_id}_1&#34;),
+                width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;Отклонить&#34;, callback_data=f&#34;admin_answer_claim_{claim_id}_3&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.send_claim_keyboard"><code class="name flex">
+<span>def <span class="ident">send_claim_keyboard</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def send_claim_keyboard():
+    &#34;&#34;&#34;
+    Создает клавиатуру для возврата в главное меню после отправки заявки.
+    :return: InlineKeyboardBuilder объект с кнопкой.
+    &#34;&#34;&#34;
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Главное меню »&#34;, callback_data=f&#34;start&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"><p>Создает клавиатуру для возврата в главное меню после отправки заявки.
+:return: InlineKeyboardBuilder объект с кнопкой.</p></div>
+</dd>
+<dt id="handlers.keyboards.worker_menu"><code class="name flex">
+<span>def <span class="ident">worker_menu</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def worker_menu():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;Новые заказы&#34;, callback_data=&#34;worker_show_claims_new&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Выполненные заказы&#34;, callback_data=&#34;worker_show_completed&#34;))
+    builder.row(types.InlineKeyboardButton(text=&#34;Отклоненные заказы&#34;, callback_data=&#34;worker_show_claims_rejected&#34;))
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.worker_show_claim_"><code class="name flex">
+<span>def <span class="ident">worker_show_claim_</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def worker_show_claim_():
+    builder = InlineKeyboardBuilder()
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;master_menu&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.worker_show_claims_new"><code class="name flex">
+<span>def <span class="ident">worker_show_claims_new</span></span>(<span>claims)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def worker_show_claims_new(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+        builder.row(
+            types.InlineKeyboardButton(text=f&#34;{&#39;🕓&#39; if claim[6] == 0 else &#39;✅&#39;} {claim[3].capitalize()} | {date_object.strftime(&#39;%d.%m&#39;)} {claim[5]}&#34;,
+                                       callback_data=f&#34;worker_show_claim_{claim[0]}&#34;),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;master_menu&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.worker_show_claims_rejected"><code class="name flex">
+<span>def <span class="ident">worker_show_claims_rejected</span></span>(<span>claims)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def worker_show_claims_rejected(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+        builder.row(
+            types.InlineKeyboardButton(text=f&#34;❌ {claim[3].capitalize()} | {date_object.strftime(&#39;%d.%m&#39;)} {claim[5]}&#34;,
+                                       callback_data=f&#34;worker_show_claim_{claim[0]}&#34;),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;master_menu&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.keyboards.worker_show_completed"><code class="name flex">
+<span>def <span class="ident">worker_show_completed</span></span>(<span>claims)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def worker_show_completed(claims):
+    builder = InlineKeyboardBuilder()
+    for claim in claims:
+        date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+        builder.row(
+            types.InlineKeyboardButton(text=f&#34;🤑 {claim[3].capitalize()} | {date_object.strftime(&#39;%d.%m&#39;)} {claim[5]}&#34;,
+                                       callback_data=f&#34;worker_show_claim_{claim[0]}&#34;),
+            width=1)
+    builder.row(types.InlineKeyboardButton(text=&#34;« Назад&#34;, callback_data=f&#34;master_menu&#34;),
+                width=1)
+    return builder</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="handlers" href="index.html">handlers</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="handlers.keyboards.admin_add_worker_username_" href="#handlers.keyboards.admin_add_worker_username_">admin_add_worker_username_</a></code></li>
+<li><code><a title="handlers.keyboards.admin_menu" href="#handlers.keyboards.admin_menu">admin_menu</a></code></li>
+<li><code><a title="handlers.keyboards.admin_show_admin_" href="#handlers.keyboards.admin_show_admin_">admin_show_admin_</a></code></li>
+<li><code><a title="handlers.keyboards.admin_show_admins" href="#handlers.keyboards.admin_show_admins">admin_show_admins</a></code></li>
+<li><code><a title="handlers.keyboards.admin_show_worker_" href="#handlers.keyboards.admin_show_worker_">admin_show_worker_</a></code></li>
+<li><code><a title="handlers.keyboards.admin_show_workers" href="#handlers.keyboards.admin_show_workers">admin_show_workers</a></code></li>
+<li><code><a title="handlers.keyboards.await_claim_for_admins" href="#handlers.keyboards.await_claim_for_admins">await_claim_for_admins</a></code></li>
+<li><code><a title="handlers.keyboards.claim_keyboard" href="#handlers.keyboards.claim_keyboard">claim_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_data_edit_keyboard" href="#handlers.keyboards.client_data_edit_keyboard">client_data_edit_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_menu_keyboard" href="#handlers.keyboards.client_menu_keyboard">client_menu_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_send_claim_keyboard" href="#handlers.keyboards.client_send_claim_keyboard">client_send_claim_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_calendar_dates_keyboard" href="#handlers.keyboards.client_show_calendar_dates_keyboard">client_show_calendar_dates_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_calendar_times_keyboard" href="#handlers.keyboards.client_show_calendar_times_keyboard">client_show_calendar_times_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_claims_keyboard" href="#handlers.keyboards.client_show_claims_keyboard">client_show_claims_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_profile_keyboard" href="#handlers.keyboards.client_show_profile_keyboard">client_show_profile_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_services_keyboard" href="#handlers.keyboards.client_show_services_keyboard">client_show_services_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_worker_keyboard" href="#handlers.keyboards.client_show_worker_keyboard">client_show_worker_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.client_show_workers_keyboard" href="#handlers.keyboards.client_show_workers_keyboard">client_show_workers_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.get_client_tel_keyboard" href="#handlers.keyboards.get_client_tel_keyboard">get_client_tel_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.send_claim_admin_keyboard" href="#handlers.keyboards.send_claim_admin_keyboard">send_claim_admin_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.send_claim_keyboard" href="#handlers.keyboards.send_claim_keyboard">send_claim_keyboard</a></code></li>
+<li><code><a title="handlers.keyboards.worker_menu" href="#handlers.keyboards.worker_menu">worker_menu</a></code></li>
+<li><code><a title="handlers.keyboards.worker_show_claim_" href="#handlers.keyboards.worker_show_claim_">worker_show_claim_</a></code></li>
+<li><code><a title="handlers.keyboards.worker_show_claims_new" href="#handlers.keyboards.worker_show_claims_new">worker_show_claims_new</a></code></li>
+<li><code><a title="handlers.keyboards.worker_show_claims_rejected" href="#handlers.keyboards.worker_show_claims_rejected">worker_show_claims_rejected</a></code></li>
+<li><code><a title="handlers.keyboards.worker_show_completed" href="#handlers.keyboards.worker_show_completed">worker_show_completed</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

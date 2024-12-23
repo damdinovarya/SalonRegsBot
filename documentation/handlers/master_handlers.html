@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>handlers.master_handlers API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>handlers.master_handlers</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="handlers.master_handlers.admin_answer_claim_"><code class="name flex">
+<span>async def <span class="ident">admin_answer_claim_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>claim_manager: database.db_claim_requests.Claim,<br>bot: aiogram.client.bot.Bot)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;admin_answer_claim_&#34;))
+async def admin_answer_claim_(callback: types.CallbackQuery, user_manager: User,
+                              data_processor: DataProcessor, claim_manager: Claim, bot: Bot):
+    &#34;&#34;&#34;
+    Показывает информацию о конкретной заявке.
+
+    :param callback:
+    :param user_manager:
+    :param data_processor: Объект для обработки данных из YClients API.
+    :param claim_manager: Менеджер для работы с базой данных заявок.
+    :param bot:
+    &#34;&#34;&#34;
+    claim_id = int(callback.data.split(&#34;_&#34;)[3])
+    state_n = int(callback.data.split(&#34;_&#34;)[4])
+    await claim_manager.update_claim_state(claim_id, state_n)
+    claim = await claim_manager.get_claim_by_id(claim_id)
+    state = &#39;на рассмотрении 🕓&#39;
+    if int(claim[6]) == 1:
+        state = &#39;одобрена ✅&#39;
+    if int(claim[6]) == 2:
+        state = &#39;исполнена 🤑&#39;
+    if int(claim[6]) == 3:
+        state = &#39;отклонена ❌&#39;
+    worker = data_processor.get_staff_by_id(int(claim[2]))
+    price = data_processor.get_service_price_by_name(claim[3])
+    date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+    time_object = datetime.strptime(claim[5], &#34;%H:%M&#34;).time()
+
+    event_url = create_google_calendar_link(date_object, time_object, worker[&#39;name&#39;], claim[3], price)
+
+    user = await user_manager.get_user_by_id_telegram(claim[1])
+    user_username = await bot.get_chat(user[1])
+    await callback.message.edit_text(f&#34;&lt;b&gt;ЗАЯВКА&lt;/b&gt; | &lt;i&gt;Статус:&lt;/i&gt; {state}&#34;
+                                     f&#34;\n\nЗаказчик: {user[2]}&#34;
+                                     f&#34;\nTelegram: @{user_username.username}&#34;
+                                     f&#34;\n\n&lt;b&gt;Сотрудник:&lt;/b&gt; {worker[&#39;name&#39;]} ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                     f&#34;\n&lt;b&gt;Выбранная услуга:&lt;/b&gt; {claim[3].capitalize()}&#34;
+                                     f&#34;\n&lt;b&gt;Стоимость услуги:&lt;/b&gt; {price}₽&#34;
+                                     f&#34;\n&lt;b&gt;Дата:&lt;/b&gt; {date_object.strftime(&#39;%d.%m.%Y&#39;)}&#34;
+                                     f&#34;\n&lt;b&gt;Время:&lt;/b&gt; {time_object.strftime(&#39;%H:%M&#39;)}&#34;
+                                     f&#34;\n\nНажмите /master чтобы посмотреть меню сотрудника.&#34;)
+
+    await bot.send_message(user[1], f&#34;&lt;b&gt;ОТКЛИК ПО ЗАЯВКЕ&lt;/b&gt; | &lt;i&gt;Статус:&lt;/i&gt; {state}&#34;
+                                    f&#34;\n\n&lt;b&gt;Сотрудник:&lt;/b&gt; {worker[&#39;name&#39;]} ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                    f&#34;\n&lt;b&gt;Выбранная услуга:&lt;/b&gt; {claim[3].capitalize()}&#34;
+                                    f&#34;\n&lt;b&gt;Стоимость услуги:&lt;/b&gt; {price}₽&#34;
+                                    f&#34;\n&lt;b&gt;Дата:&lt;/b&gt; {date_object.strftime(&#39;%d.%m.%Y&#39;)}&#34;
+                                    f&#34;\n&lt;b&gt;Время:&lt;/b&gt; {time_object.strftime(&#39;%H:%M&#39;)}&#34;
+                                    f&#34;\n\nДобавить мероприятие в календарь: &lt;a href=&#39;{event_url}&#39;&gt;ДОБАВИТЬ В КАЛЕНДАРЬ&lt;/a&gt;&#34;
+                                    f&#34;\n\nНажмите на /start чтобы попасть в главное меню.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Показывает информацию о конкретной заявке.</p>
+<p>:param callback:
+:param user_manager:
+:param data_processor: Объект для обработки данных из YClients API.
+:param claim_manager: Менеджер для работы с базой данных заявок.
+:param bot:</p></div>
+</dd>
+<dt id="handlers.master_handlers.claim_"><code class="name flex">
+<span>async def <span class="ident">claim_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>claim_manager: database.db_claim_requests.Claim,<br>bot: aiogram.client.bot.Bot)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;worker_show_claim_&#34;))
+async def claim_(callback: types.CallbackQuery, user_manager: User,
+                 data_processor: DataProcessor, claim_manager: Claim, bot: Bot):
+    &#34;&#34;&#34;
+    Показывает информацию о конкретной заявке.
+
+    :param callback:
+    :param user_manager:
+    :param data_processor: Объект для обработки данных из YClients API.
+    :param claim_manager: Менеджер для работы с базой данных заявок.
+    :param bot:
+    &#34;&#34;&#34;
+    claim_id = int(callback.data.split(&#34;_&#34;)[3])
+    claim = await claim_manager.get_claim_by_id(claim_id)
+    worker = data_processor.get_staff_by_id(int(claim[2]))
+    price = data_processor.get_service_price_by_name(claim[3])
+    date_object = datetime.strptime(claim[4], &#34;%Y-%m-%d&#34;)
+    time_object = datetime.strptime(claim[5], &#34;%H:%M&#34;).time()
+    state = &#39;на рассмотрении 🕓&#39;
+    if int(claim[6]) == 1:
+        state = &#39;одобрена ✅&#39;
+    if int(claim[6]) == 2:
+        state = &#39;исполнена 🤑&#39;
+    if int(claim[6]) == 3:
+        state = &#39;отклонена ❌&#39;
+    user = await user_manager.get_user_by_id_telegram(claim[1])
+    user_username = await bot.get_chat(claim[1])
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/claim.jpg&#39;),
+                                                            caption=f&#34;&lt;b&gt;ЗАЯВКА&lt;/b&gt; | &lt;i&gt;Статус:&lt;/i&gt; {state}&#34;
+                                                                    f&#34;\n\nЗаказчик: {user[2]}&#34;
+                                                                    f&#34;\nTelegram: @{user_username.username}&#34;
+                                                                    f&#34;\n\n&lt;b&gt;Сотрудник:&lt;/b&gt; {worker[&#39;name&#39;]} ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                                                    f&#34;\n&lt;b&gt;Выбранная услуга:&lt;/b&gt; {claim[3].capitalize()}&#34;
+                                                                    f&#34;\n&lt;b&gt;Стоимость услуги:&lt;/b&gt; {price}₽&#34;
+                                                                    f&#34;\n&lt;b&gt;Дата:&lt;/b&gt; {date_object.strftime(&#39;%d.%m.%Y&#39;)}&#34;
+                                                                    f&#34;\n&lt;b&gt;Время:&lt;/b&gt; {time_object.strftime(&#39;%H:%M&#39;)}&#34;),
+                                      reply_markup=keyboards.worker_show_claim_().as_markup())</code></pre>
+</details>
+<div class="desc"><p>Показывает информацию о конкретной заявке.</p>
+<p>:param callback:
+:param user_manager:
+:param data_processor: Объект для обработки данных из YClients API.
+:param claim_manager: Менеджер для работы с базой данных заявок.
+:param bot:</p></div>
+</dd>
+<dt id="handlers.master_handlers.master"><code class="name flex">
+<span>async def <span class="ident">master</span></span>(<span>message: aiogram.types.message.Message,<br>worker_manager: database.db_worker_requests.Worker)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.message(Command(&#34;master&#34;))
+async def master(message: Message, worker_manager: Worker):
+    &#34;&#34;&#34;
+    Панель сотрудника.
+    Проверяет наличие сотрудника в базе данных
+    регистрирует если его нет
+    иначе показывает меню сотрудника.
+
+    :param message:
+    :param worker_manager:
+    &#34;&#34;&#34;
+    username = &#34;@&#34; + str(message.from_user.username)
+    worker = await worker_manager.get_worker_by_username(username)
+    if username not in worker:
+        await message.answer_photo(photo=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                   caption=f&#34;К сожалению вас нет в нашей базе данных(( &#34;
+                                           f&#34;Напишите вашему администратору, чтобы добавил ваш username в базу.&#34;
+                                           f&#34;\n\nНажмите /start чтобы вернуться в главное меню.&#34;)
+    else:
+        if message.chat.id not in worker:
+            await worker_manager.update_worker(message.chat.id, username)
+        await message.answer_photo(photo=FSInputFile(&#39;handlers/images/master.jpg&#39;),
+                                   caption=f&#34;Вот меню сотрудника:&#34;, reply_markup=keyboards.worker_menu().as_markup())</code></pre>
+</details>
+<div class="desc"><p>Панель сотрудника.
+Проверяет наличие сотрудника в базе данных
+регистрирует если его нет
+иначе показывает меню сотрудника.</p>
+<p>:param message:
+:param worker_manager:</p></div>
+</dd>
+<dt id="handlers.master_handlers.master_menu"><code class="name flex">
+<span>async def <span class="ident">master_menu</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;master_menu&#34;)
+async def master_menu(callback: types.CallbackQuery, worker_manager: Worker):
+    &#34;&#34;&#34;
+    Выдает сотруднику список всех новых невыполненных заказов.
+
+    :param callback:
+    :param worker_manager:
+    :return:
+    &#34;&#34;&#34;
+    await callback.message.edit_caption(caption=f&#34;Вот меню сотрудника:&#34;,
+                                        reply_markup=keyboards.worker_menu().as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает сотруднику список всех новых невыполненных заказов.</p>
+<p>:param callback:
+:param worker_manager:
+:return:</p></div>
+</dd>
+<dt id="handlers.master_handlers.worker_show_claims_new"><code class="name flex">
+<span>async def <span class="ident">worker_show_claims_new</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>claim_manager: database.db_claim_requests.Claim)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;worker_show_claims_new&#34;)
+async def worker_show_claims_new(callback: types.CallbackQuery, worker_manager: Worker, claim_manager: Claim):
+    &#34;&#34;&#34;
+    Выдает сотруднику список всех новых невыполненных заказов.
+
+    :param callback:
+    :param worker_manager:
+    :param claim_manager:
+    :return:
+    &#34;&#34;&#34;
+    worker = await worker_manager.get_worker_by_user_id(callback.message.chat.id)
+    all_claims = await claim_manager.get_claim_by_master(worker[3])
+    claims = [claim for claim in all_claims if claim[6] in [0, 1]]
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Вот список всех невыполненных заказов:&#34;),
+                                      reply_markup=keyboards.worker_show_claims_new(claims).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает сотруднику список всех новых невыполненных заказов.</p>
+<p>:param callback:
+:param worker_manager:
+:param claim_manager:
+:return:</p></div>
+</dd>
+<dt id="handlers.master_handlers.worker_show_claims_rejected"><code class="name flex">
+<span>async def <span class="ident">worker_show_claims_rejected</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>claim_manager: database.db_claim_requests.Claim)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;worker_show_claims_rejected&#34;)
+async def worker_show_claims_rejected(callback: types.CallbackQuery, worker_manager: Worker, claim_manager: Claim):
+    &#34;&#34;&#34;
+    Выдает сотруднику список всех новых невыполненных заказов.
+
+    :param callback:
+    :param worker_manager:
+    :param claim_manager:
+    :return:
+    &#34;&#34;&#34;
+    worker = await worker_manager.get_worker_by_user_id(callback.message.chat.id)
+    all_claims = await claim_manager.get_claim_by_master(worker[3])
+    claims = [claim for claim in all_claims if claim[6] in [3]]
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Вот список всех отмененных заказов:&#34;),
+                                      reply_markup=keyboards.worker_show_claims_rejected(claims).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает сотруднику список всех новых невыполненных заказов.</p>
+<p>:param callback:
+:param worker_manager:
+:param claim_manager:
+:return:</p></div>
+</dd>
+<dt id="handlers.master_handlers.worker_show_completed"><code class="name flex">
+<span>async def <span class="ident">worker_show_completed</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>claim_manager: database.db_claim_requests.Claim)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;worker_show_completed&#34;)
+async def worker_show_completed(callback: types.CallbackQuery, worker_manager: Worker, claim_manager: Claim):
+    &#34;&#34;&#34;
+    Выдает сотруднику список всех новых невыполненных заказов.
+
+    :param callback:
+    :param worker_manager:
+    :param claim_manager:
+    :return:
+    &#34;&#34;&#34;
+    worker = await worker_manager.get_worker_by_user_id(callback.message.chat.id)
+    all_claims = await claim_manager.get_claim_by_master(worker[3])
+    claims = [claim for claim in all_claims if claim[6] in [2]]
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Вот список всех выполненных заказов:&#34;),
+                                      reply_markup=keyboards.worker_show_completed(claims).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает сотруднику список всех новых невыполненных заказов.</p>
+<p>:param callback:
+:param worker_manager:
+:param claim_manager:
+:return:</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="handlers.master_handlers.MasterState"><code class="flex name class">
+<span>class <span class="ident">MasterState</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MasterState(StatesGroup):
+    user_await = State()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>aiogram.fsm.state.StatesGroup</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="handlers.master_handlers.MasterState.user_await"><code class="name">var <span class="ident">user_await</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="handlers" href="index.html">handlers</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="handlers.master_handlers.admin_answer_claim_" href="#handlers.master_handlers.admin_answer_claim_">admin_answer_claim_</a></code></li>
+<li><code><a title="handlers.master_handlers.claim_" href="#handlers.master_handlers.claim_">claim_</a></code></li>
+<li><code><a title="handlers.master_handlers.master" href="#handlers.master_handlers.master">master</a></code></li>
+<li><code><a title="handlers.master_handlers.master_menu" href="#handlers.master_handlers.master_menu">master_menu</a></code></li>
+<li><code><a title="handlers.master_handlers.worker_show_claims_new" href="#handlers.master_handlers.worker_show_claims_new">worker_show_claims_new</a></code></li>
+<li><code><a title="handlers.master_handlers.worker_show_claims_rejected" href="#handlers.master_handlers.worker_show_claims_rejected">worker_show_claims_rejected</a></code></li>
+<li><code><a title="handlers.master_handlers.worker_show_completed" href="#handlers.master_handlers.worker_show_completed">worker_show_completed</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="handlers.master_handlers.MasterState" href="#handlers.master_handlers.MasterState">MasterState</a></code></h4>
+<ul class="">
+<li><code><a title="handlers.master_handlers.MasterState.user_await" href="#handlers.master_handlers.MasterState.user_await">user_await</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>

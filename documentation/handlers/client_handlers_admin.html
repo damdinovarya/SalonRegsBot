@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.5">
+<title>handlers.client_handlers_admin API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>handlers.client_handlers_admin</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="handlers.client_handlers_admin.accept_claim_for_admins_"><code class="name flex">
+<span>async def <span class="ident">accept_claim_for_admins_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>admin_manager: database.db_admin_requests.Admin,<br>bot: aiogram.client.bot.Bot)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;accept_claim_for_admins_&#34;))
+async def accept_claim_for_admins_(callback: types.CallbackQuery, user_manager: User, admin_manager: Admin, bot: Bot):
+    &#34;&#34;&#34;
+    Одобрение заявки на админку.
+
+    :param callback:
+    :param user_manager:
+    :param admin_manager:
+    :param bot:
+    &#34;&#34;&#34;
+    user_id = int(callback.data.split(&#34;_&#34;)[4])
+    user_data = await user_manager.get_user_by_id_telegram(user_id)
+    await admin_manager.accept_admin(user_id)
+    await callback.message.edit_text(f&#34;&lt;b&gt;ЗАЯВКА НА АДМИНКУ - Одобрена&lt;/b&gt;&#34;
+                                            f&#34;\n\n&lt;b&gt;{user_data[2]}&lt;/b&gt;&#34;
+                                            f&#34;\n&lt;b&gt;Телефон:&lt;/b&gt; {user_data[3]}&#34;
+                                            f&#34;\n\nНажмите /admin чтобы посмотреть меню админа.&#34;)
+
+    await bot.send_message(user_id, f&#34;&lt;b&gt;ВАША ЗАЯВКА НА АДМИНКУ ОДОБРЕНА&lt;/b&gt;&#34;
+                                            f&#34;\nНажмите /admin чтобы посмотреть меню админа&#34;)</code></pre>
+</details>
+<div class="desc"><p>Одобрение заявки на админку.</p>
+<p>:param callback:
+:param user_manager:
+:param admin_manager:
+:param bot:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.add_worker_username"><code class="name flex">
+<span>async def <span class="ident">add_worker_username</span></span>(<span>message: aiogram.types.message.Message,<br>worker_manager: database.db_worker_requests.Worker,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>state: aiogram.fsm.context.FSMContext)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.message(ClientAdminState.add_worker_username)
+async def add_worker_username(message: Message, worker_manager: Worker, data_processor: DataProcessor, state: FSMContext):
+    &#34;&#34;&#34;
+    Добавляет username выбранному сотруднику.
+
+    :param message:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    :return:
+    &#34;&#34;&#34;
+    username = message.text
+    data = await state.get_data()
+    worker_id = data[&#39;worker_id&#39;]
+    await worker_manager.create_worker(username, worker_id)
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, &#34;Нет в базе данных&#34;, worker_id]
+    worker = data_processor.get_staff_by_id(int(worker_id))
+    await message.answer_photo(photo=worker[&#39;avatar_big&#39;],
+                                 caption=f&#34;&lt;b&gt;{worker[&#39;name&#39;]}&lt;/b&gt; ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                         f&#34;\n&lt;i&gt;Специализация: {worker[&#39;specialization&#39;]}&lt;/i&gt;&#34;
+                                         f&#34;\n\n&lt;pre&gt;{worker[&#39;information&#39;].replace(&#39;&lt;p&gt;&#39;, &#39;&#39;).replace(&#39;&lt;/p&gt;&#39;, &#39;&#39;)}&lt;/pre&gt;&#34;
+                                         f&#34;\n\n&lt;b&gt;Telegram ID:&lt;/b&gt; {&#39;Не указан&#39; if worker_database[1] == -1 else worker_database[1]}&#34;
+                                         f&#34;\n&lt;b&gt;Telegram username:&lt;/b&gt; {worker_database[2]}&#34;
+                                         f&#34;\n&lt;b&gt;YClients Staff ID:&lt;/b&gt; {worker_database[3]}&#34;,
+                                 reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()</code></pre>
+</details>
+<div class="desc"><p>Добавляет username выбранному сотруднику.</p>
+<p>:param message:
+:param worker_manager:
+:param data_processor:
+:param state:
+:return:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin"><code class="name flex">
+<span>async def <span class="ident">admin</span></span>(<span>message: aiogram.types.message.Message,<br>user_manager: database.db_user_requests.User,<br>admin_manager: database.db_admin_requests.Admin,<br>bot: aiogram.client.bot.Bot)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.message(Command(&#34;admin&#34;))
+async def admin(message: Message, user_manager: User, admin_manager: Admin, bot: Bot):
+    &#34;&#34;&#34;
+    Панель админа.
+    Проверяет наличие админа в базе данных
+    запускает регистрацию если его нет
+    иначе показывает меню админа.
+
+    :param message:
+    :param user_manager:
+    :param admin_manager:
+    :param bot:
+    &#34;&#34;&#34;
+    admin = await admin_manager.get_admin_by_id_telegram(message.chat.id)
+    if admin != [] and message.chat.id == admin[1]:
+        if admin[2] == 1:
+            await message.answer_photo(photo=FSInputFile(&#39;handlers/images/admin.jpg&#39;), caption=f&#34;Выберите нужную опцию:&#34;,
+                                   reply_markup=keyboards.admin_menu().as_markup())
+        elif admin[2] == 0:
+            await message.answer_photo(photo=FSInputFile(&#39;handlers/images/salonregs.jpg&#39;),
+                                       caption=f&#34;Ваша заявка на админку на рассмотрении. Ожидайте подтверждения.&#34;
+                                               f&#34;\n\nНажмите /start для возврата в главное меню.&#34;)
+        elif admin[2] == 2:
+            await message.answer_photo(photo=FSInputFile(&#39;handlers/images/salonregs.jpg&#39;),
+                                       caption=f&#34;Вы больше не являетесь админом(&#34;
+                                               f&#34;\n\nНажмите /start для возврата в главное меню.&#34;)
+        elif admin[2] == 3:
+            await message.answer_photo(photo=FSInputFile(&#39;handlers/images/salonregs.jpg&#39;),
+                                       caption=f&#34;Ваша заявка на админку отклонена(&#34;
+                                               f&#34;\n\nНажмите /start для возврата в главное меню.&#34;)
+    else:
+        user_data = await user_manager.get_user_by_id_telegram(message.chat.id)
+        await admin_manager.create_admin(message.chat.id)
+        await bot.send_message(config.ADMIN_ID, f&#34;&lt;b&gt;ЗАЯВКА НА АДМИНКУ&lt;/b&gt;&#34;
+                                                f&#34;\n\n&lt;b&gt;{user_data[2]}&lt;/b&gt;&#34;
+                                                f&#34;\n&lt;b&gt;Телефон:&lt;/b&gt; {user_data[3]}&#34;
+                                                f&#34;\n\nЧтобы принять заявку нажмите на &lt;b&gt;«Принять»&lt;/b&gt;&#34;,
+                               reply_markup=keyboards.await_claim_for_admins(message.chat.id).as_markup())
+
+        await message.answer_photo(photo=FSInputFile(&#39;handlers/images/salonregs.jpg&#39;),
+                                   caption=f&#34;Ваша заявка на админку на рассмотрении. Ожидайте подтверждения.&#34;
+                                           f&#34;\n\nНажмите /start для возврата в главное меню.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Панель админа.
+Проверяет наличие админа в базе данных
+запускает регистрацию если его нет
+иначе показывает меню админа.</p>
+<p>:param message:
+:param user_manager:
+:param admin_manager:
+:param bot:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_add_worker_username_"><code class="name flex">
+<span>async def <span class="ident">admin_add_worker_username_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>state: aiogram.fsm.context.FSMContext)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;admin_add_worker_username_&#34;))
+async def admin_add_worker_username_(callback: types.CallbackQuery, worker_manager: Worker,
+                                     data_processor: DataProcessor, state: FSMContext):
+    &#34;&#34;&#34;
+    Включает режим ожидания получения username сотрудника.
+
+    :param callback:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    &#34;&#34;&#34;
+    worker_id = int(callback.data.split(&#34;_&#34;)[4])
+    await state.set_state(ClientAdminState.add_worker_username)
+    await state.update_data(worker_id=worker_id)
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Отправьте username сотрудника: (Пример: @salon_regs_bot)&#34;),
+                                      reply_markup=keyboards.admin_add_worker_username_(worker_id).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Включает режим ожидания получения username сотрудника.</p>
+<p>:param callback:
+:param worker_manager:
+:param data_processor:
+:param state:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_menu"><code class="name flex">
+<span>async def <span class="ident">admin_menu</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>admin_manager: database.db_admin_requests.Admin)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;admin_menu&#34;)
+async def admin_menu(callback: types.CallbackQuery, user_manager: User, admin_manager: Admin):
+    &#34;&#34;&#34;
+    Выдает меню админки (Callback).
+
+    :param callback:
+    :param user_manager:
+    :param admin_manager:
+    :return:
+    &#34;&#34;&#34;
+    await callback.message.edit_caption(caption=f&#34;Выберите нужную опцию:&#34;,
+                                      reply_markup=keyboards.admin_menu().as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает меню админки (Callback).</p>
+<p>:param callback:
+:param user_manager:
+:param admin_manager:
+:return:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_remove_worker_username_"><code class="name flex">
+<span>async def <span class="ident">admin_remove_worker_username_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>state: aiogram.fsm.context.FSMContext)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;admin_remove_worker_username_&#34;))
+async def admin_remove_worker_username_(callback: types.CallbackQuery, worker_manager: Worker,
+                                     data_processor: DataProcessor, state: FSMContext):
+    &#34;&#34;&#34;
+    Включает режим ожидания получения нового username сотрудника.
+
+    :param callback:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    &#34;&#34;&#34;
+    worker_id = int(callback.data.split(&#34;_&#34;)[4])
+    await state.set_state(ClientAdminState.update_worker_username)
+    await state.update_data(worker_id=worker_id)
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Отправьте новый username сотрудника: (Пример: @salon_regs_bot)&#34;),
+                                      reply_markup=keyboards.admin_add_worker_username_(worker_id).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Включает режим ожидания получения нового username сотрудника.</p>
+<p>:param callback:
+:param worker_manager:
+:param data_processor:
+:param state:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_show_admin_"><code class="name flex">
+<span>async def <span class="ident">admin_show_admin_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>worker_manager: database.db_worker_requests.Worker,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>state: aiogram.fsm.context.FSMContext)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;admin_show_worker_&#34;))
+async def admin_show_admin_(callback: types.CallbackQuery, worker_manager: Worker,
+                            data_processor: DataProcessor, state: FSMContext):
+    &#34;&#34;&#34;
+    Показывает информацию об выбранном сотруднике.
+
+    :param callback:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    &#34;&#34;&#34;
+
+    worker_id = int(callback.data.split(&#34;_&#34;)[3])
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, &#34;Нет в базе данных&#34;, worker_id]
+    worker = data_processor.get_staff_by_id(int(worker_id))
+    await callback.message.edit_media(media=InputMediaPhoto(media=worker[&#39;avatar_big&#39;],
+                              caption=f&#34;&lt;b&gt;{worker[&#39;name&#39;]}&lt;/b&gt; ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                      f&#34;\n&lt;i&gt;Специализация: {worker[&#39;specialization&#39;]}&lt;/i&gt;&#34;
+                                      f&#34;\n\n&lt;pre&gt;{worker[&#39;information&#39;].replace(&#39;&lt;p&gt;&#39;, &#39;&#39;).replace(&#39;&lt;/p&gt;&#39;, &#39;&#39;)}&lt;/pre&gt;&#34;
+                                      f&#34;\n\n&lt;b&gt;Telegram ID:&lt;/b&gt; {&#39;Не указан&#39; if worker_database[1] == -1 else worker_database[1]}&#34;
+                                      f&#34;\n&lt;b&gt;Telegram username:&lt;/b&gt; {worker_database[2]}&#34;
+                                      f&#34;\n&lt;b&gt;YClients Staff ID:&lt;/b&gt; {worker_database[3]}&#34;),
+                                      reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()</code></pre>
+</details>
+<div class="desc"><p>Показывает информацию об выбранном сотруднике.</p>
+<p>:param callback:
+:param worker_manager:
+:param data_processor:
+:param state:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_show_admins"><code class="name flex">
+<span>async def <span class="ident">admin_show_admins</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>admin_manager: database.db_admin_requests.Admin)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;admin_show_admins&#34;)
+async def admin_show_admins(callback: types.CallbackQuery, user_manager: User, admin_manager: Admin):
+    &#34;&#34;&#34;
+    Выдает админу список всех активных админов.
+
+    :param callback:
+    :param user_manager:
+    :param admin_manager:
+    :return:
+    &#34;&#34;&#34;
+    admins_ids = await admin_manager.get_all_admins()
+    admins = []
+    for admin_id in admins_ids:
+        admins.append(await user_manager.get_user_by_id_telegram(admin_id[1]))
+    await callback.message.edit_caption(caption=f&#34;Вот список действующих админов:&#34;,
+                                        reply_markup=keyboards.admin_show_admins(admins).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает админу список всех активных админов.</p>
+<p>:param callback:
+:param user_manager:
+:param admin_manager:
+:return:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.admin_show_workers"><code class="name flex">
+<span>async def <span class="ident">admin_show_workers</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>data_processor: yclients_things.data_processing.DataProcessor)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data == &#34;admin_show_workers&#34;)
+async def admin_show_workers(callback: types.CallbackQuery, data_processor: DataProcessor):
+    &#34;&#34;&#34;
+    Выдает админу список всех активных сотрудников.
+
+    :param callback:
+    :param data_processor:
+    :return:
+    &#34;&#34;&#34;
+    await callback.message.edit_media(media=InputMediaPhoto(media=FSInputFile(&#39;handlers/images/admin.jpg&#39;),
+                                                            caption=f&#34;Вот список всех действующих сотрудников:&#34;),
+                                      reply_markup=keyboards.admin_show_workers(data_processor.get_all_staffs()).as_markup())</code></pre>
+</details>
+<div class="desc"><p>Выдает админу список всех активных сотрудников.</p>
+<p>:param callback:
+:param data_processor:
+:return:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.reject_claim_for_admins_"><code class="name flex">
+<span>async def <span class="ident">reject_claim_for_admins_</span></span>(<span>callback: aiogram.types.callback_query.CallbackQuery,<br>user_manager: database.db_user_requests.User,<br>admin_manager: database.db_admin_requests.Admin)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.callback_query(F.data.startswith(&#34;reject_claim_for_admins_&#34;))
+async def reject_claim_for_admins_(callback: types.CallbackQuery, user_manager: User, admin_manager: Admin):
+    &#34;&#34;&#34;
+    Отклонение заявки на админку.
+
+    :param callback:
+    :param user_manager:
+    :param admin_manager:
+    &#34;&#34;&#34;
+    user_id = int(callback.data.split(&#34;_&#34;)[4])
+    user_data = await user_manager.get_user_by_id_telegram(user_id)
+    await admin_manager.reject_admin(user_id)
+    await callback.message.edit_text(f&#34;&lt;b&gt;ЗАЯВКА НА АДМИНКУ - Отклонена&lt;/b&gt;&#34;
+                                            f&#34;\n\n&lt;b&gt;{user_data[2]}&lt;/b&gt;&#34;
+                                            f&#34;\n&lt;b&gt;Телефон:&lt;/b&gt; {user_data[3]}&#34;
+                                            f&#34;\n\nНажмите /admin чтобы посмотреть меню админа.&#34;)</code></pre>
+</details>
+<div class="desc"><p>Отклонение заявки на админку.</p>
+<p>:param callback:
+:param user_manager:
+:param admin_manager:</p></div>
+</dd>
+<dt id="handlers.client_handlers_admin.update_worker_username"><code class="name flex">
+<span>async def <span class="ident">update_worker_username</span></span>(<span>message: aiogram.types.message.Message,<br>worker_manager: database.db_worker_requests.Worker,<br>data_processor: yclients_things.data_processing.DataProcessor,<br>state: aiogram.fsm.context.FSMContext)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@router.message(ClientAdminState.update_worker_username)
+async def update_worker_username(message: Message, worker_manager: Worker, data_processor: DataProcessor, state: FSMContext):
+    &#34;&#34;&#34;
+    Добавляет новый username выбранному сотруднику.
+
+    :param message:
+    :param worker_manager:
+    :param data_processor:
+    :param state:
+    :return:
+    &#34;&#34;&#34;
+    username = message.text
+    data = await state.get_data()
+    worker_id = data[&#39;worker_id&#39;]
+    await worker_manager.update_worker_username(username, worker_id)
+    worker_database = await worker_manager.get_worker_by_staff_id(int(worker_id))
+    flag = 0
+    if not worker_database:
+        flag = 1
+        worker_database = [-1, -1, &#34;Нет в базе данных&#34;, worker_id]
+    worker = data_processor.get_staff_by_id(int(worker_id))
+    await message.answer_photo(photo=worker[&#39;avatar_big&#39;],
+                                 caption=f&#34;&lt;b&gt;{worker[&#39;name&#39;]}&lt;/b&gt; ({worker[&#39;rating&#39;]}⭐️)&#34;
+                                         f&#34;\n&lt;i&gt;Специализация: {worker[&#39;specialization&#39;]}&lt;/i&gt;&#34;
+                                         f&#34;\n\n&lt;pre&gt;{worker[&#39;information&#39;].replace(&#39;&lt;p&gt;&#39;, &#39;&#39;).replace(&#39;&lt;/p&gt;&#39;, &#39;&#39;)}&lt;/pre&gt;&#34;
+                                         f&#34;\n\n&lt;b&gt;Telegram ID:&lt;/b&gt; {&#39;Не указан&#39; if worker_database[1] == -1 else worker_database[1]}&#34;
+                                         f&#34;\n&lt;b&gt;Telegram username:&lt;/b&gt; {worker_database[2]}&#34;
+                                         f&#34;\n&lt;b&gt;YClients Staff ID:&lt;/b&gt; {worker_database[3]}&#34;,
+                                 reply_markup=keyboards.admin_show_worker_(flag, worker_id).as_markup())
+    await state.clear()</code></pre>
+</details>
+<div class="desc"><p>Добавляет новый username выбранному сотруднику.</p>
+<p>:param message:
+:param worker_manager:
+:param data_processor:
+:param state:
+:return:</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="handlers.client_handlers_admin.ClientAdminState"><code class="flex name class">
+<span>class <span class="ident">ClientAdminState</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ClientAdminState(StatesGroup):
+    user_await = State()
+
+    add_worker_username = State()
+    update_worker_username = State()</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>aiogram.fsm.state.StatesGroup</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="handlers.client_handlers_admin.ClientAdminState.add_worker_username"><code class="name">var <span class="ident">add_worker_username</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.client_handlers_admin.ClientAdminState.update_worker_username"><code class="name">var <span class="ident">update_worker_username</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="handlers.client_handlers_admin.ClientAdminState.user_await"><code class="name">var <span class="ident">user_await</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="handlers" href="index.html">handlers</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="handlers.client_handlers_admin.accept_claim_for_admins_" href="#handlers.client_handlers_admin.accept_claim_for_admins_">accept_claim_for_admins_</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.add_worker_username" href="#handlers.client_handlers_admin.add_worker_username">add_worker_username</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin" href="#handlers.client_handlers_admin.admin">admin</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_add_worker_username_" href="#handlers.client_handlers_admin.admin_add_worker_username_">admin_add_worker_username_</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_menu" href="#handlers.client_handlers_admin.admin_menu">admin_menu</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_remove_worker_username_" href="#handlers.client_handlers_admin.admin_remove_worker_username_">admin_remove_worker_username_</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_show_admin_" href="#handlers.client_handlers_admin.admin_show_admin_">admin_show_admin_</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_show_admins" href="#handlers.client_handlers_admin.admin_show_admins">admin_show_admins</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.admin_show_workers" href="#handlers.client_handlers_admin.admin_show_workers">admin_show_workers</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.reject_claim_for_admins_" href="#handlers.client_handlers_admin.reject_claim_for_admins_">reject_claim_for_admins_</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.update_worker_username" href="#handlers.client_handlers_admin.update_worker_username">update_worker_username</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="handlers.client_handlers_admin.ClientAdminState" href="#handlers.client_handlers_admin.ClientAdminState">ClientAdminState</a></code></h4>
+<ul class="">
+<li><code><a title="handlers.client_handlers_admin.ClientAdminState.add_worker_username" href="#handlers.client_handlers_admin.ClientAdminState.add_worker_username">add_worker_username</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.ClientAdminState.update_worker_username" href="#handlers.client_handlers_admin.ClientAdminState.update_worker_username">update_worker_username</a></code></li>
+<li><code><a title="handlers.client_handlers_admin.ClientAdminState.user_await" href="#handlers.client_handlers_admin.ClientAdminState.user_await">user_await</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.5</a>.</p>
+</footer>
+</body>
+</html>
